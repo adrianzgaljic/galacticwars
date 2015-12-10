@@ -16,18 +16,24 @@ public class Demo {
         ArrayList<WarParticipant> empireParticipants = new ArrayList<>();
         ArrayList<WarParticipant> rebelParticipants = new ArrayList<>();
 
+
         DarthVader darthVader = DarthVader.getInstance();
         darthVader.setId(UUID.randomUUID().toString());
-        darthVader.setRebelParticipants(rebelParticipants);
+        darthVader.setEnemyParticipants(rebelParticipants);
         empireParticipants.add(darthVader);
+
 
         LukeSkywalker lukeSkywalker = LukeSkywalker.getInstance();
         lukeSkywalker.setId(UUID.randomUUID().toString());
-        lukeSkywalker.setEmpireParticipants(empireParticipants);
+        lukeSkywalker.setEnemyParticipants(empireParticipants);
         rebelParticipants.add(lukeSkywalker);
 
-        new Thread(darthVader).start();
+        darthVader.setHealth(1000);
+        lukeSkywalker.setHealth(1000);
         new Thread(lukeSkywalker).start();
+        new Thread(darthVader).start();
+
+
 
 
 
