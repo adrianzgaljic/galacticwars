@@ -18,11 +18,16 @@ public class Demo {
 
         DarthVader darthVader = DarthVader.getInstance();
         darthVader.setId(UUID.randomUUID().toString());
+        darthVader.setRebelParticipants(rebelParticipants);
         empireParticipants.add(darthVader);
 
         LukeSkywalker lukeSkywalker = LukeSkywalker.getInstance();
         lukeSkywalker.setId(UUID.randomUUID().toString());
+        lukeSkywalker.setEmpireParticipants(empireParticipants);
         rebelParticipants.add(lukeSkywalker);
+
+        new Thread(darthVader).start();
+        new Thread(lukeSkywalker).start();
 
 
 
