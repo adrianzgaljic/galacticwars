@@ -1,5 +1,7 @@
 package weapons;
 
+import participants.WarParticipant;
+
 /**
  * Created by adrianzgaljic on 09/12/15.
  * LightSaber is weapon used by the Jedi and the Sith.
@@ -16,12 +18,14 @@ public class LightSaber implements Weapon {
      */
     private int force;
 
-    /**
-     * Constructor
-     * @param color lightsaber color
-     */
+
     public LightSaber(String color){
         this.color = color;
+    }
+
+    public LightSaber(String color, int force){
+        this.color = color;
+        this.force = force;
     }
 
     /**
@@ -33,7 +37,8 @@ public class LightSaber implements Weapon {
     }
 
     @Override
-    public int fire() {
-        return force;
+    public void fire(WarParticipant target, WarParticipant attacker) {
+        System.out.println("FZZZZ "+attacker.getName()+" zamahnuo svojim "+color+" lightsaberom na "+target.getName());
+        target.defend(attacker,force);
     }
 }

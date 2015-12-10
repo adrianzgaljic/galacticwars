@@ -1,36 +1,28 @@
 package participants;
+import weapons.Weapon;
+
 import java.util.ArrayList;
 import java.util.Random;
 
 /**
  * Created by adrianzgaljic on 09/12/15.
- * LukeSkywalker is singleton class which represents Jedi Luke Skywalker
+ * WarParticipant represents all war participants e.g. Jedis, Siths, armies or vehicles
  */
 public abstract class WarParticipant implements Runnable {
 
     /**
      * minimum time between two attacks
      */
-    final int MIN_ATTACK_INTERVAL = 100;
+    final int MIN_ATTACK_INTERVAL = 1000;
 
     /**
      * maximum time between two attacks
      */
-    final int MAX_ATTACK_INTERVAL = 1000;
-
-    public abstract void attack(WarParticipant target);
-
-    public abstract void defend(WarParticipant attacker);
+    final int MAX_ATTACK_INTERVAL = 2000;
 
     Random random = new Random();
 
-    public void setHealth(int health) {
-        this.health = health;
-    }
 
-    public int getHealth() {
-        return health;
-    }
 
     /**
      * health represents condition of character
@@ -57,43 +49,34 @@ public abstract class WarParticipant implements Runnable {
     private String name;
 
 
-    /**
-     * getter for id
-     * @return id
-     */
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+
     public String getId() {
         return id;
     }
 
 
-    /**
-     * setter for id
-     * @param id
-     */
     public void setId(String id) {
         this.id = id;
     }
 
-    /**
-     * setter for enemyParticipants
-     * @param enemyParticipants
-     */
+
     public void setEnemyParticipants(ArrayList<WarParticipant> enemyParticipants) {
         this.enemyParticipants = enemyParticipants;
     }
 
-    /**
-     * getter for name
-     * @return character name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * setter for name
-     * @param name character name
-     */
     public void setName(String name) {
         this.name = name;
     }
@@ -127,12 +110,26 @@ public abstract class WarParticipant implements Runnable {
         System.out.println(getName() + " umireeem");
         try{
             target.enemyParticipants.remove(this);
-        }catch(Exception e){
+        }catch(NullPointerException e){
             System.err.println("Target isn't initialized");
         }
 
 
     }
+
+    /**
+     * methot that represents attack on target
+     * @param target randomly choosen enemy
+     */
+    public abstract void attack(WarParticipant target);
+
+    /**
+     * method which is called by attacker when war participant (target) is attacked
+     * war participant can defend, lose some of it's health or die instantly
+     * @param attacker enemy who is attacking this war participant
+     * @param force  force used to attack
+     */
+    public abstract void defend(WarParticipant attacker, int force);
 
 
 

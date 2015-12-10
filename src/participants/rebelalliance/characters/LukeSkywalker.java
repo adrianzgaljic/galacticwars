@@ -1,7 +1,8 @@
-package participants.rebelalliance;
+package participants.rebelalliance.characters;
 
 import participants.WarParticipant;
-import java.util.Random;
+import weapons.LightSaber;
+import weapons.Weapon;
 
 /**
  * Created by adrianzgaljic on 09/12/15.
@@ -9,8 +10,10 @@ import java.util.Random;
  */
 public class LukeSkywalker extends WarParticipant {
 
-
-    Random random = new Random();
+    /**
+     * war participants weapon
+     */
+    private Weapon weapon = new LightSaber("light blue",100);
 
 
     /**
@@ -48,17 +51,17 @@ public class LukeSkywalker extends WarParticipant {
 
     @Override
     public void attack(WarParticipant target) {
-        target.defend(this);
+        weapon.fire(target,this);
 
 
     }
 
     @Override
-    public void defend(WarParticipant attacket) {
+    public void defend(WarParticipant attacker, int force) {
 
 
-        setHealth(getHealth()-100);
-        System.out.println(getName() + " primio udarac "+getHealth());
+        setHealth(getHealth()-force);
+        System.out.println(getName() + " primio udarac od "+attacker.getName()+", još mu je preostalo "+getHealth()+" zdravlja");
 
     }
 

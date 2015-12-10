@@ -1,8 +1,10 @@
 package demo;
 
 import participants.WarParticipant;
+import participants.empire.armies.StormTroopers;
 import participants.empire.characters.DarthVader;
-import participants.rebelalliance.LukeSkywalker;
+import participants.empire.vehicles.spaceships.DeathStar;
+import participants.rebelalliance.characters.LukeSkywalker;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -28,10 +30,23 @@ public class Demo {
         lukeSkywalker.setEnemyParticipants(empireParticipants);
         rebelParticipants.add(lukeSkywalker);
 
+        StormTroopers stormTroopers = StormTroopers.getInstance();
+        stormTroopers.setId(UUID.randomUUID().toString());
+        stormTroopers.setEnemyParticipants(rebelParticipants);
+        empireParticipants.add(stormTroopers);
+        DeathStar deathStar = DeathStar.getInstance();
+        deathStar.setId(UUID.randomUUID().toString());
+        deathStar.setEnemyParticipants(rebelParticipants);
+        empireParticipants.add(deathStar);
+
         darthVader.setHealth(1000);
-        lukeSkywalker.setHealth(1000);
+        lukeSkywalker.setHealth(10000);
+        stormTroopers.setHealth(50*10);
+        deathStar.setHealth(5000);
         new Thread(lukeSkywalker).start();
         new Thread(darthVader).start();
+        new Thread(stormTroopers).start();
+        new Thread(deathStar).start();
 
 
 
