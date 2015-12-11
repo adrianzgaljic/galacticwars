@@ -1,8 +1,10 @@
-package participants.empire.armies;
+package participants.rebelalliance.vehicles.spaceships;
 
+import participants.Vehicle;
 import participants.WarParticipant;
 import weapons.DLT19HeavyBlasterRifle;
 import weapons.E11BlasterRifle;
+import weapons.SuperLaser;
 import weapons.Weapon;
 
 import java.util.ArrayList;
@@ -12,7 +14,7 @@ import java.util.Random;
 /**
  * Created by adrianzgaljic on 10/12/15.
  */
-public class StormTroopers extends WarParticipant {
+public class MillenniumFalcon extends Vehicle {
 
     private Random random = new Random();
 
@@ -21,24 +23,25 @@ public class StormTroopers extends WarParticipant {
      */
     ArrayList<Weapon> weapons = new ArrayList<>(Arrays.asList(
             new DLT19HeavyBlasterRifle(),
-            new E11BlasterRifle())
+            new E11BlasterRifle(),
+            new SuperLaser())
     );
 
     /**
      * name of character
      */
-    private final String name = "Storm Troopers";
+    private final String name = "Millenium Falcon";
 
     /**
-     * only instance of StormTroopers class
+     * only instance of MillenniumFalcon class
      */
-    private static  StormTroopers stormTroopers  = new StormTroopers();
+    private static  MillenniumFalcon millenniumFalcon = new MillenniumFalcon();
 
     /**
      * private Constructor prevents any other
      * class from instantiating
      */
-    private StormTroopers(){}
+    private MillenniumFalcon(){}
 
     @Override
     public String getName() {
@@ -49,13 +52,12 @@ public class StormTroopers extends WarParticipant {
 
 
     /**
-     * getter for only instance of StormTroopers  class
-     * @return StormTroopers instance
+     * getter for only instance of MillenniumFalcon class
+     * @return MillenniumFalcon instance
      */
-    public static StormTroopers getInstance(){
-        return stormTroopers;
+    public static MillenniumFalcon getInstance(){
+        return millenniumFalcon;
     }
-
 
     @Override
     public void attack(WarParticipant target) {
@@ -64,10 +66,6 @@ public class StormTroopers extends WarParticipant {
 
     @Override
     public void defend(WarParticipant attacker, int force) {
-        setHealth(getHealth() - force);
-        int noAlive = getHealth()/10;
-        int noOfDied = force/10;
-        System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je poginulo "+noOfDied+
-                ", ostalo ih je još "+noAlive);
+        System.out.println("Millennium Falcon aktivira štit, nemreš mi ništa");
     }
 }

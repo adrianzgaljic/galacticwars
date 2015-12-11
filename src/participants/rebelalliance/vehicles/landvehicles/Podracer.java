@@ -1,4 +1,4 @@
-package participants.rebelalliance.characters.vehicles.spaceships;
+package participants.rebelalliance.vehicles.landvehicles;
 
 import participants.Vehicle;
 import participants.WarParticipant;
@@ -14,7 +14,7 @@ import java.util.Random;
 /**
  * Created by adrianzgaljic on 10/12/15.
  */
-public class T64XWing extends Vehicle {
+public class Podracer extends Vehicle {
 
     private Random random = new Random();
 
@@ -30,7 +30,7 @@ public class T64XWing extends Vehicle {
     /**
      * name of character
      */
-    private final String name = "T-64x Wing";
+    private final String name = "Podracer";
 
 
 
@@ -48,6 +48,6 @@ public class T64XWing extends Vehicle {
 
     @Override
     public void defend(WarParticipant attacker, int force) {
-        System.out.println("T-64x Wing aktivira štit, nemreš mi ništa");
+        System.out.println("Delta-7B Interceptor aktivira štit, nemreš mi ništa");
     }
 }

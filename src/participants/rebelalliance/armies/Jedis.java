@@ -1,10 +1,8 @@
-package participants.rebelalliance.characters.vehicles.spaceships;
+package participants.rebelalliance.armies;
 
-import participants.Vehicle;
 import participants.WarParticipant;
 import weapons.DLT19HeavyBlasterRifle;
 import weapons.E11BlasterRifle;
-import weapons.SuperLaser;
 import weapons.Weapon;
 
 import java.util.ArrayList;
@@ -12,9 +10,9 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- * Created by adrianzgaljic on 10/12/15.
+ * Created by adrianzgaljic on 11/12/15.
  */
-public class MillenniumFalcon extends Vehicle {
+public class Jedis extends WarParticipant {
 
     private Random random = new Random();
 
@@ -23,25 +21,24 @@ public class MillenniumFalcon extends Vehicle {
      */
     ArrayList<Weapon> weapons = new ArrayList<>(Arrays.asList(
             new DLT19HeavyBlasterRifle(),
-            new E11BlasterRifle(),
-            new SuperLaser())
+            new E11BlasterRifle())
     );
 
     /**
      * name of character
      */
-    private final String name = "Millenium Falcon";
+    private final String name = "Jedis";
 
     /**
-     * only instance of MillenniumFalcon class
+     * only instance of Jedis class
      */
-    private static  MillenniumFalcon millenniumFalcon = new MillenniumFalcon();
+    private static  Jedis jedis  = new Jedis();
 
     /**
      * private Constructor prevents any other
      * class from instantiating
      */
-    private MillenniumFalcon(){}
+    private Jedis(){}
 
     @Override
     public String getName() {
@@ -52,12 +49,13 @@ public class MillenniumFalcon extends Vehicle {
 
 
     /**
-     * getter for only instance of MillenniumFalcon class
-     * @return MillenniumFalcon instance
+     * getter for only instance of Jedis class
+     * @return Jedis instance
      */
-    public static MillenniumFalcon getInstance(){
-        return millenniumFalcon;
+    public static Jedis getInstance(){
+        return jedis;
     }
+
 
     @Override
     public void attack(WarParticipant target) {
@@ -66,6 +64,10 @@ public class MillenniumFalcon extends Vehicle {
 
     @Override
     public void defend(WarParticipant attacker, int force) {
-        System.out.println("Millennium Falcon aktivira štit, nemreš mi ništa");
+    /*    setHealth(getHealth() - force);
+        int noAlive = getHealth()/10;
+        int noOfDied = force/10;
+        System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je poginulo "+noOfDied+
+                ", ostalo ih je još "+noAlive);*/
     }
 }

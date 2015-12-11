@@ -10,9 +10,9 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- * Created by adrianzgaljic on 10/12/15.
+ * Created by adrianzgaljic on 11/12/15.
  */
-public class StormTroopers extends WarParticipant {
+public class ImperialRoyalGuard extends WarParticipant {
 
     private Random random = new Random();
 
@@ -27,18 +27,18 @@ public class StormTroopers extends WarParticipant {
     /**
      * name of character
      */
-    private final String name = "Storm Troopers";
+    private final String name = "Imperial Royal guard";
 
     /**
-     * only instance of StormTroopers class
+     * only instance of ImperialRoyalGuard class
      */
-    private static  StormTroopers stormTroopers  = new StormTroopers();
+    private static  ImperialRoyalGuard imperialRoyalGuard = new ImperialRoyalGuard();
 
     /**
      * private Constructor prevents any other
      * class from instantiating
      */
-    private StormTroopers(){}
+    private ImperialRoyalGuard(){}
 
     @Override
     public String getName() {
@@ -49,11 +49,11 @@ public class StormTroopers extends WarParticipant {
 
 
     /**
-     * getter for only instance of StormTroopers  class
-     * @return StormTroopers instance
+     * getter for only instance of ImperialRoyalGuard class
+     * @return ImperialRoyalGuard instance
      */
-    public static StormTroopers getInstance(){
-        return stormTroopers;
+    public static ImperialRoyalGuard getInstance(){
+        return imperialRoyalGuard;
     }
 
 
@@ -64,10 +64,12 @@ public class StormTroopers extends WarParticipant {
 
     @Override
     public void defend(WarParticipant attacker, int force) {
-        setHealth(getHealth() - force);
+    /*    setHealth(getHealth() - force);
         int noAlive = getHealth()/10;
         int noOfDied = force/10;
         System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je poginulo "+noOfDied+
-                ", ostalo ih je još "+noAlive);
+                ", ostalo ih je još "+noAlive);*/
     }
 }
+
+

@@ -1,4 +1,4 @@
-package participants.rebelalliance.characters.vehicles.spaceships;
+package participants.rebelalliance.vehicles.spaceships;
 
 import participants.Vehicle;
 import participants.WarParticipant;

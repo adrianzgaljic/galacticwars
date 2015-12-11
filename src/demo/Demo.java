@@ -2,7 +2,7 @@ package demo;
 
 import participants.WarParticipant;
 import participants.empire.armies.StormTroopers;
-import participants.empire.characters.DarthVader;
+import participants.empire.characters.DarthSidious;
 import participants.empire.vehicles.spaceships.DeathStar;
 import participants.rebelalliance.characters.LukeSkywalker;
 
@@ -19,7 +19,7 @@ public class Demo {
         ArrayList<WarParticipant> rebelParticipants = new ArrayList<>();
 
 
-        DarthVader darthVader = DarthVader.getInstance();
+        DarthSidious darthVader = DarthSidious.getInstance();
         darthVader.setId(UUID.randomUUID().toString());
         darthVader.setEnemyParticipants(rebelParticipants);
         empireParticipants.add(darthVader);

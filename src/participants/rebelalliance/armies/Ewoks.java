@@ -1,4 +1,4 @@
-package participants.empire.armies;
+package participants.rebelalliance.armies;
 
 import participants.WarParticipant;
 import weapons.DLT19HeavyBlasterRifle;
@@ -12,7 +12,7 @@ import java.util.Random;
 /**
  * Created by adrianzgaljic on 10/12/15.
  */
-public class StormTroopers extends WarParticipant {
+public class Ewoks extends WarParticipant {
 
     private Random random = new Random();
 
@@ -27,18 +27,18 @@ public class StormTroopers extends WarParticipant {
     /**
      * name of character
      */
-    private final String name = "Storm Troopers";
+    private final String name = "Ewoks";
 
     /**
      * only instance of StormTroopers class
      */
-    private static  StormTroopers stormTroopers  = new StormTroopers();
+    private static  Ewoks ewoks  = new Ewoks();
 
     /**
      * private Constructor prevents any other
      * class from instantiating
      */
-    private StormTroopers(){}
+    private Ewoks(){}
 
     @Override
     public String getName() {
@@ -49,11 +49,11 @@ public class StormTroopers extends WarParticipant {
 
 
     /**
-     * getter for only instance of StormTroopers  class
-     * @return StormTroopers instance
+     * getter for only instance of Ewoks  class
+     * @return Ewoks instance
      */
-    public static StormTroopers getInstance(){
-        return stormTroopers;
+    public static Ewoks getInstance(){
+        return ewoks;
     }
 
 
@@ -64,10 +64,10 @@ public class StormTroopers extends WarParticipant {
 
     @Override
     public void defend(WarParticipant attacker, int force) {
-        setHealth(getHealth() - force);
+    /*    setHealth(getHealth() - force);
         int noAlive = getHealth()/10;
         int noOfDied = force/10;
         System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je poginulo "+noOfDied+
-                ", ostalo ih je još "+noAlive);
+                ", ostalo ih je još "+noAlive);*/
     }
 }

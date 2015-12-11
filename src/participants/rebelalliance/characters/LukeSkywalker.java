@@ -1,8 +1,11 @@
 package participants.rebelalliance.characters;
 
 import participants.WarParticipant;
-import weapons.LightSaber;
-import weapons.Weapon;
+import weapons.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 /**
  * Created by adrianzgaljic on 09/12/15.
@@ -10,10 +13,14 @@ import weapons.Weapon;
  */
 public class LukeSkywalker extends WarParticipant {
 
+    private Random random = new Random();
+
+
     /**
-     * war participants weapon
+     * war participants weapons
      */
-    private Weapon weapon = new LightSaber("light blue",100);
+    ArrayList<LightSaber> weapons = new ArrayList<>(Arrays.asList(
+            new LightSaber("light blue",100), new LightSaber("green",100)));
 
 
     /**
@@ -51,7 +58,7 @@ public class LukeSkywalker extends WarParticipant {
 
     @Override
     public void attack(WarParticipant target) {
-        weapon.fire(target,this);
+        weapons.get(random.nextInt(weapons.size())).fire(target, this);
 
 
     }

@@ -2,8 +2,11 @@ package participants.empire.characters;
 
 import participants.WarParticipant;
 import weapons.LightSaber;
+import weapons.PureForce;
 import weapons.Weapon;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -15,13 +18,15 @@ public class DarthVader extends WarParticipant {
 
         Random random = new Random();
 
-       /**
-           * war participants weapon
-        */
-        private Weapon weapon = new LightSaber("red",120);
+    /**
+     * war participants weapons
+     */
+    ArrayList<Weapon> weapons = new ArrayList<>(Arrays.asList(
+            new LightSaber("red", 120), new PureForce()));
 
 
-        /**
+
+    /**
          * name of character
          */
         private final String name = "Darth Vader";
@@ -29,7 +34,7 @@ public class DarthVader extends WarParticipant {
         /**
          * only instance of DarthVader class
          */
-        private static  DarthVader darthVader  = new DarthVader();
+        private static DarthVader darthVader  = new DarthVader();
 
         /**
          * private Constructor prevents any other
@@ -56,7 +61,8 @@ public class DarthVader extends WarParticipant {
 
         @Override
         public void attack(WarParticipant target) {
-            weapon.fire(target, this);
+            weapons.get(random.nextInt(weapons.size())).fire(target, this);
+
 
 
         }
