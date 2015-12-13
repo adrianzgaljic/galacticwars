@@ -1,8 +1,10 @@
 package participants.empire.armies;
 
+import demo.Health;
 import participants.WarParticipant;
 import weapons.DLT19HeavyBlasterRifle;
 import weapons.E11BlasterRifle;
+import weapons.LightSaber;
 import weapons.Weapon;
 
 import java.util.ArrayList;
@@ -19,9 +21,11 @@ public class Siths extends WarParticipant {
     /**
      * war participants weapons
      */
-    ArrayList<Weapon> weapons = new ArrayList<>(Arrays.asList(
-            new DLT19HeavyBlasterRifle(),
-            new E11BlasterRifle())
+    ArrayList<LightSaber> weapons = new ArrayList<>(Arrays.asList(
+            new LightSaber("orange",10),
+            new LightSaber("purple",15),
+            new LightSaber("yellow",20),
+            new LightSaber("red",25))
     );
 
     /**
@@ -59,16 +63,18 @@ public class Siths extends WarParticipant {
 
     @Override
     public void attack(WarParticipant target) {
-        weapons.get(random.nextInt(weapons.size())).fire(target, this);
+        int noOfDroids = getHealth()/ Health.SITHS;
+        int noOfShooting = 1+random.nextInt(noOfDroids);
+        weapons.get(random.nextInt(weapons.size())).fire(target, this, noOfShooting);
     }
 
     @Override
     public void defend(WarParticipant attacker, int force) {
-    /*    setHealth(getHealth() - force);
-        int noAlive = getHealth()/10;
-        int noOfDied = force/10;
+        setHealth(getHealth() - force);
+        int noAlive = getHealth()/Health.SITHS;
+        int noOfDied = force/Health.SITHS;
         System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je poginulo "+noOfDied+
-                ", ostalo ih je još "+noAlive);*/
+                ", ostalo ih je još "+noAlive);
     }
 }
 

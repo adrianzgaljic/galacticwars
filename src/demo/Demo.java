@@ -15,7 +15,7 @@ import java.util.UUID;
 public class Demo {
 
     public static void main(String args[]){
-        ArrayList<WarParticipant> empireParticipants = new ArrayList<>();
+     /*   ArrayList<WarParticipant> empireParticipants = new ArrayList<>();
         ArrayList<WarParticipant> rebelParticipants = new ArrayList<>();
 
 
@@ -47,7 +47,9 @@ public class Demo {
         new Thread(darthVader).start();
         new Thread(stormTroopers).start();
         new Thread(deathStar).start();
-
+*/
+        Engine engine = new Engine();
+        engine.startWar();
 
 
 

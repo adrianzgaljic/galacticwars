@@ -43,7 +43,7 @@ public class Podracer extends Vehicle {
 
     @Override
     public void attack(WarParticipant target) {
-        weapons.get(random.nextInt(weapons.size())).fire(target, this);
+        weapons.get(random.nextInt(weapons.size())).fire(target, this,1);
     }
 
     @Override

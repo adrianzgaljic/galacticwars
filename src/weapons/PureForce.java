@@ -20,10 +20,10 @@ public class PureForce implements Weapon {
 
 
     @Override
-    public void fire(WarParticipant target, WarParticipant attacker) {
+    public void fire(WarParticipant target, WarParticipant attacker, int noOfShooters) {
         //when used, pure force takes one fifth of overall target health
         force = target.getHealth()/5;
-        System.out.println("WOOOSH " + attacker.getName() + " koristi čistu silu protiv " + target.getName());
+        System.out.println(attacker.getName() + " koristi čistu silu protiv " + target.getName());
         target.defend(attacker, force);
     }
 

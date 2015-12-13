@@ -1,9 +1,8 @@
 package participants.empire.armies;
 
+import demo.Health;
 import participants.WarParticipant;
-import weapons.DLT19HeavyBlasterRifle;
-import weapons.E11BlasterRifle;
-import weapons.Weapon;
+import weapons.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +19,8 @@ public class StormTroopers extends WarParticipant {
      * war participants weapons
      */
     ArrayList<Weapon> weapons = new ArrayList<>(Arrays.asList(
-            new DLT19HeavyBlasterRifle(),
+            new E5BlasterRifle(),
+            new Blaster(),
             new E11BlasterRifle())
     );
 
@@ -59,7 +59,16 @@ public class StormTroopers extends WarParticipant {
 
     @Override
     public void attack(WarParticipant target) {
-        weapons.get(random.nextInt(weapons.size())).fire(target, this);
+        int noOfDroids = getHealth()/ Health.STORM_TR;
+        int noOfShooting = 1+random.nextInt(noOfDroids);
+        weapons.get(random.nextInt(weapons.size())).fire(target, this, noOfShooting);
+        int chance = random.nextInt(5);
+        if (chance==0){
+            int fatality = (random.nextInt(4)+1);
+            System.out.println("Smotani Stormtrooperi su u napadu uspjeli ubiti "+fatality+" svojih vojnika");
+            defend(this,fatality*Health.STORM_TR);
+        }
+
     }
 
     @Override
@@ -67,7 +76,11 @@ public class StormTroopers extends WarParticipant {
         setHealth(getHealth() - force);
         int noAlive = getHealth()/10;
         int noOfDied = force/10;
-        System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je poginulo "+noOfDied+
-                ", ostalo ih je još "+noAlive);
+        //TODO provjeri ak ovo radi
+        if (!attacker.getClass().equals(this.getClass())){
+            System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je poginulo "+noOfDied+
+                    ", ostalo ih je još "+noAlive);
+        }
+
     }
 }

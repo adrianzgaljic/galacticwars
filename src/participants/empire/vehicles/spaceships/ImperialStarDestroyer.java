@@ -19,12 +19,16 @@ public class ImperialStarDestroyer extends Vehicle {
     private Random random = new Random();
 
     /**
+     * when under attack, imperial star destroyer can activate shield which gets damaged and eventually destroyed
+     */
+    private int shieldHealth = 100;
+
+    /**
      * war participants weapons
      */
     ArrayList<Weapon> weapons = new ArrayList<>(Arrays.asList(
             new DLT19HeavyBlasterRifle(),
-            new E11BlasterRifle(),
-            new SuperLaser())
+            new E11BlasterRifle())
     );
 
     /**
@@ -61,11 +65,30 @@ public class ImperialStarDestroyer extends Vehicle {
 
     @Override
     public void attack(WarParticipant target) {
-        weapons.get(random.nextInt(weapons.size())).fire(target, this);
+        if (random.nextInt(3)==0){
+            System.out.println("ImperialStarDestroyer puca na "+target+" ali promašuje.");
+        } else {
+            weapons.get(random.nextInt(weapons.size())).fire(target, this,1);
+        }
+
     }
 
     @Override
     public void defend(WarParticipant attacker, int force) {
-        System.out.println("ImperialStarDestroyer aktivira štit, nemreš mi ništa");
+        //there is 1/3 chance that shield will be activated
+        if (random.nextInt(3)==0 && shieldHealth>0){
+            shieldHealth = shieldHealth - random.nextInt(30);
+            System.out.println("Imperial Star Destroyer aktivira štit, ne možete mi ništa, stanje štita "+shieldHealth+"%");
+        } else {
+            int fatality = (int)(random.nextInt(200)/(double)10000*force);
+            System.out.println("U napadu na Imperial Star Destroye, poginulo "+fatality+" članova posade");
+            if (getCrew()<=0){
+                System.out.println("Imperial Star Destroyer nema posadu i samouništava se");
+                setHealth(0);
+            } else{
+                setHealth(getHealth()-force);
+                System.out.println("Imperial Star Destroye pretrpila udarac jačine "+getHealth()+" ostalo još "+getHealth()+" snage.");
+            }
+        }
     }
 }

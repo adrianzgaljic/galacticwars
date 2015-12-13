@@ -1,11 +1,9 @@
 package participants.empire.vehicles.landvehicles;
 
+import demo.Health;
 import participants.Vehicle;
 import participants.WarParticipant;
-import weapons.DLT19HeavyBlasterRifle;
-import weapons.E11BlasterRifle;
-import weapons.SuperLaser;
-import weapons.Weapon;
+import weapons.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,9 +20,8 @@ public class AtSt extends Vehicle {
      * war participants weapons
      */
     ArrayList<Weapon> weapons = new ArrayList<>(Arrays.asList(
-            new DLT19HeavyBlasterRifle(),
-            new E11BlasterRifle(),
-            new SuperLaser())
+            new E5BlasterRifle(),
+            new E11BlasterRifle())
     );
 
     /**
@@ -43,11 +40,17 @@ public class AtSt extends Vehicle {
 
     @Override
     public void attack(WarParticipant target) {
-        weapons.get(random.nextInt(weapons.size())).fire(target, this);
+        int noOfAtst = getHealth()/ Health.STORM_TR;
+        int noOfShooting = random.nextInt(noOfAtst);
+        weapons.get(random.nextInt(weapons.size())).fire(target, this,noOfShooting);
     }
 
     @Override
     public void defend(WarParticipant attacker, int force) {
-        System.out.println("Delta-7B Interceptor aktivira štit, nemreš mi ništa");
+        setHealth(getHealth() - force);
+        int noAlive = getHealth()/(Health.STORM_TR*2);
+        int noOfDied = force/(Health.STORM_TR*2);
+        System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je uništeno "+noOfDied+
+                ", ostalo ih je još "+noAlive);
     }
 }

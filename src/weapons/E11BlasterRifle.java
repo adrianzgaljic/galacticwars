@@ -12,7 +12,7 @@ public class E11BlasterRifle implements Weapon {
     /**
      * weapon force, amount of damage it can make to enemy
      */
-    private final int force = 10;
+    private final int force = 1;
 
 
     public int getForce() {
@@ -22,8 +22,8 @@ public class E11BlasterRifle implements Weapon {
 
 
     @Override
-    public void fire(WarParticipant target, WarParticipant attacker) {
-        System.out.println("TRRR "+attacker.getName()+" pucaju iz E-11 Blaster riflea na "+target.getName());
-        target.defend(attacker, force);
+    public void fire(WarParticipant target, WarParticipant attacker, int noOfShooters) {
+        System.out.println(noOfShooters+" "+attacker.getName()+" pucaju iz E-11 Blaster riflea na "+target.getName());
+        target.defend(attacker, noOfShooters*force);
     }
 }

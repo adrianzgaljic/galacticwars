@@ -1,6 +1,8 @@
 package participants.empire.armies;
 
+import demo.Health;
 import participants.WarParticipant;
+import participants.empire.characters.DarthVader;
 import weapons.DLT19HeavyBlasterRifle;
 import weapons.E11BlasterRifle;
 import weapons.Weapon;
@@ -59,16 +61,23 @@ public class ImperialRoyalGuard extends WarParticipant {
 
     @Override
     public void attack(WarParticipant target) {
-        weapons.get(random.nextInt(weapons.size())).fire(target, this);
+        if (DarthVader.getInstance().getHealth()>0){
+            int noOfDroids = getHealth()/ Health.IMPERIAL_GUARD;
+            int noOfShooting = random.nextInt(noOfDroids);
+            weapons.get(random.nextInt(weapons.size())).fire(target, this, noOfShooting);
+        } else{
+            System.out.println(getName()+" kreću napasti "+target+" ali shvaćaju da je Darth Vader mrtav \ni bezvoljno odustaju");
+        }
+
     }
 
     @Override
     public void defend(WarParticipant attacker, int force) {
-    /*    setHealth(getHealth() - force);
+        setHealth(getHealth() - force);
         int noAlive = getHealth()/10;
         int noOfDied = force/10;
         System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je poginulo "+noOfDied+
-                ", ostalo ih je još "+noAlive);*/
+                ", ostalo ih je još "+noAlive);
     }
 }
 

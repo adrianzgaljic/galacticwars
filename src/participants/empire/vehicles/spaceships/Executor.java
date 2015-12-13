@@ -1,5 +1,6 @@
 package participants.empire.vehicles.spaceships;
 
+import demo.Health;
 import participants.Vehicle;
 import participants.WarParticipant;
 import weapons.DLT19HeavyBlasterRifle;
@@ -23,8 +24,7 @@ public class Executor  extends Vehicle {
      */
     ArrayList<Weapon> weapons = new ArrayList<>(Arrays.asList(
             new DLT19HeavyBlasterRifle(),
-            new E11BlasterRifle(),
-            new SuperLaser())
+            new E11BlasterRifle())
     );
 
     /**
@@ -43,11 +43,17 @@ public class Executor  extends Vehicle {
 
     @Override
     public void attack(WarParticipant target) {
-        weapons.get(random.nextInt(weapons.size())).fire(target, this);
+        int noOfExecutors = getHealth()/ Health.STORM_TR;
+        int noOfShooting = random.nextInt(noOfExecutors);
+        weapons.get(random.nextInt(weapons.size())).fire(target, this,noOfShooting);
     }
 
     @Override
     public void defend(WarParticipant attacker, int force) {
-        System.out.println("Executor aktivira štit, nemreš mi ništa");
+        setHealth(getHealth() - force);
+        int noAlive = getHealth()/Health.STORM_TR;
+        int noOfDied = force/Health.STORM_TR;
+        System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je uništeno "+noOfDied+
+                ", ostalo ih je još "+noAlive);
     }
 }

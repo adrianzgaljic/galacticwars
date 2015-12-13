@@ -61,7 +61,7 @@ public class DarthVader extends WarParticipant {
 
         @Override
         public void attack(WarParticipant target) {
-            weapons.get(random.nextInt(weapons.size())).fire(target, this);
+            weapons.get(random.nextInt(weapons.size())).fire(target, this,1);
 
 
 

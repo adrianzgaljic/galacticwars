@@ -1,5 +1,6 @@
 package participants.rebelalliance.armies;
 
+import demo.Health;
 import participants.WarParticipant;
 import weapons.DLT19HeavyBlasterRifle;
 import weapons.E11BlasterRifle;
@@ -59,15 +60,17 @@ public class Jedis extends WarParticipant {
 
     @Override
     public void attack(WarParticipant target) {
-        weapons.get(random.nextInt(weapons.size())).fire(target, this);
+        int noOfJedis = getHealth()/ Health.JEDIS;
+        int noOfShooting = 1+random.nextInt(noOfJedis);
+        weapons.get(random.nextInt(weapons.size())).fire(target, this, noOfShooting);
     }
 
     @Override
     public void defend(WarParticipant attacker, int force) {
-    /*    setHealth(getHealth() - force);
-        int noAlive = getHealth()/10;
-        int noOfDied = force/10;
-        System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je poginulo "+noOfDied+
-                ", ostalo ih je još "+noAlive);*/
+        setHealth(getHealth() - force);
+        int noAlive = getHealth()/Health.JEDIS;
+        int noOfDied = force/Health.JEDIS;
+        System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je uništeno "+noOfDied+
+                ", ostalo ih je još "+noAlive);
     }
 }

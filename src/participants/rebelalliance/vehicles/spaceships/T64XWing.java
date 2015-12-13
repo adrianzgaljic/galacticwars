@@ -16,6 +16,10 @@ import java.util.Random;
  */
 public class T64XWing extends Vehicle {
 
+    public T64XWing(String name){
+        this.name = name;
+    }
+
     private Random random = new Random();
 
     /**
@@ -27,10 +31,12 @@ public class T64XWing extends Vehicle {
             new SuperLaser())
     );
 
+
+
     /**
      * name of character
      */
-    private final String name = "T-64x Wing";
+    private String name = "T-64x Wing";
 
 
 
@@ -43,7 +49,7 @@ public class T64XWing extends Vehicle {
 
     @Override
     public void attack(WarParticipant target) {
-        weapons.get(random.nextInt(weapons.size())).fire(target, this);
+        weapons.get(random.nextInt(weapons.size())).fire(target, this,1);
     }
 
     @Override

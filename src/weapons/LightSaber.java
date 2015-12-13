@@ -37,8 +37,8 @@ public class LightSaber implements Weapon {
     }
 
     @Override
-    public void fire(WarParticipant target, WarParticipant attacker) {
-        System.out.println("FZZZZ "+attacker.getName()+" zamahnuo svojim "+color+" lightsaberom na "+target.getName());
+    public void fire(WarParticipant target, WarParticipant attacker, int noOfShooters) {
+        System.out.println(attacker.getName()+" zamahnuo svojim "+color+" lightsaberom na "+target.getName());
         target.defend(attacker,force);
     }
 }

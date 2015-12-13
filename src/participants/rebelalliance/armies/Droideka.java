@@ -1,5 +1,6 @@
 package participants.rebelalliance.armies;
 
+import demo.Health;
 import participants.WarParticipant;
 import weapons.DLT19HeavyBlasterRifle;
 import weapons.E11BlasterRifle;
@@ -59,15 +60,17 @@ public class Droideka extends WarParticipant {
 
     @Override
     public void attack(WarParticipant target) {
-        weapons.get(random.nextInt(weapons.size())).fire(target, this);
+        int noOfDroids = getHealth()/ Health.DROIDEKA;
+        int noOfShooting = 1+random.nextInt(noOfDroids);
+        weapons.get(random.nextInt(weapons.size())).fire(target, this, noOfShooting);
     }
 
     @Override
     public void defend(WarParticipant attacker, int force) {
-    /*    setHealth(getHealth() - force);
-        int noAlive = getHealth()/10;
-        int noOfDied = force/10;
-        System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je poginulo "+noOfDied+
-                ", ostalo ih je još "+noAlive);*/
+        setHealth(getHealth() - force);
+        int noAlive = getHealth()/Health.DROIDEKA;
+        int noOfDied = force/Health.DROIDEKA;
+        System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je uništeno "+noOfDied+
+                ", ostalo ih je još "+noAlive);
     }
 }

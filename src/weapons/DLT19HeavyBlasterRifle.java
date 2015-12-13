@@ -20,8 +20,8 @@ public class DLT19HeavyBlasterRifle implements Weapon{
 
 
     @Override
-    public void fire(WarParticipant target, WarParticipant attacker) {
-        System.out.println("TRRR "+attacker.getName()+" pucaju iz DLT-19 heavy blaster riflea na "+target.getName());
+    public void fire(WarParticipant target, WarParticipant attacker,  int noOfShooters) {
+        System.out.println(attacker.getName()+" pucaju iz DLT-19 heavy blaster riflea na "+target.getName());
         target.defend(attacker, force);
     }
 }

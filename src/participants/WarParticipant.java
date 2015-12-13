@@ -89,6 +89,7 @@ public abstract class WarParticipant implements Runnable {
         int targetIndex;
         WarParticipant target = null;
         System.out.println(getName()+" startao");
+        Long startTime = System.currentTimeMillis();
         while (getHealth() > 0) {
             time = MIN_ATTACK_INTERVAL+ random.nextInt(MAX_ATTACK_INTERVAL-MIN_ATTACK_INTERVAL);
             try {

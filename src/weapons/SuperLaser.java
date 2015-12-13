@@ -24,7 +24,7 @@ public class SuperLaser implements Weapon {
     }
 
     @Override
-    public void fire(WarParticipant target, WarParticipant attacker) {
+    public void fire(WarParticipant target, WarParticipant attacker, int noOfShooters) {
         long currTime = System.currentTimeMillis();
         long elapsedTime = currTime-startTime;
 

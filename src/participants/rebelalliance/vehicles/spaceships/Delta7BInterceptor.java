@@ -43,11 +43,12 @@ public class Delta7BInterceptor extends Vehicle {
 
     @Override
     public void attack(WarParticipant target) {
-        weapons.get(random.nextInt(weapons.size())).fire(target, this);
+        weapons.get(random.nextInt(weapons.size())).fire(target, this,1);
     }
 
     @Override
     public void defend(WarParticipant attacker, int force) {
         System.out.println("Delta-7B Interceptor aktivira štit, nemreš mi ništa");
+
     }
 }

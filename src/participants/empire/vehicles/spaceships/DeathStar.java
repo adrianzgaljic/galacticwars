@@ -17,6 +17,10 @@ import java.util.Random;
 public class DeathStar extends Vehicle {
 
     private Random random = new Random();
+    /**
+     * when under attack, death star can activate shield which gets damaged and eventually destroyed
+     */
+    private int shieldHealth = 100;
 
     /**
      * war participants weapons
@@ -61,17 +65,28 @@ public class DeathStar extends Vehicle {
 
     @Override
     public void attack(WarParticipant target) {
-        weapons.get(random.nextInt(weapons.size())).fire(target, this);
+        weapons.get(random.nextInt(weapons.size())).fire(target, this,1);
     }
 
     @Override
     public void defend(WarParticipant attacker, int force) {
-        System.out.println("death star aktivira štit, nemreš mi ništa");
-        int fatality = (int)(random.nextInt(200)/(double)10000*force);
-        System.out.println("Ipak, poginulo "+fatality+" ljudi");
-        if (getCrew()<=0){
-            System.out.println("zvijezda smrti nema posadu i samouništava se");
-            setHealth(0);
+        //there is 50-50 chance that shield will be activated
+        if (random.nextInt(1)==0 && shieldHealth>0){
+            shieldHealth = shieldHealth - random.nextInt(20);
+            System.out.println("Death star aktivira štit, ne možete mi ništa, stanje štita "+shieldHealth+"%");
+        } else {
+            int fatality = (int)(random.nextInt(200)/(double)10000*force);
+            System.out.println("U napadu na zvijezdu smrti, poginulo "+fatality+" članova posade");
+            if (getCrew()<=0){
+                System.out.println("Death star nema posadu i samouništava se");
+                setHealth(0);
+            } else{
+                setHealth(getHealth()-force);
+                System.out.println("Death star pretrpila udarac jačine "+getHealth()+" ostalo još "+getHealth()+" snage.");
+            }
         }
+
+
+
     }
 }

@@ -8,10 +8,20 @@ import participants.WarParticipant;
  */
 public class Blaster implements Weapon{
 
+    /**
+     * weapon force, amount of damage it can make to enemy
+     */
+    private final int force = 1;
+
+
+    public int getForce() {
+        return force;
+    }
 
 
     @Override
-    public void fire(WarParticipant target, WarParticipant attacket) {
-
+    public void fire(WarParticipant target, WarParticipant attacker,  int noOfShooters) {
+        System.out.println(noOfShooters+" "+attacker.getName()+" pucaju iz Blastera na "+target.getName());
+        target.defend(attacker, noOfShooters*force);
     }
 }

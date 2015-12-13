@@ -14,6 +14,6 @@ public interface Weapon {
      * @param target target war participant
      * @param attacker attacker war participant
      */
-    void fire(WarParticipant target, WarParticipant attacker);
+    void fire(WarParticipant target, WarParticipant attacker, int noOfShooters);
 
 }

@@ -55,7 +55,7 @@ public class DarthSidious extends WarParticipant {
 
     @Override
     public void attack(WarParticipant target) {
-        weapon.fire(target, this);
+        weapon.fire(target, this,1);
 
 
     }
