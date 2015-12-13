@@ -11,6 +11,7 @@ import java.util.Random;
 
 /**
  * Created by adrianzgaljic on 10/12/15.
+ * Implementation of 74-Z Speeder Bikes, used by Stortroopers.
  */
 public class Z74SpeederBike extends Vehicle {
 
