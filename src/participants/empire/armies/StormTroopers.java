@@ -77,6 +77,7 @@ public class StormTroopers extends Army {
         setHealth(getHealth() - force);
         int noAlive = getHealth()/Health.STORM_TR;
         int noOfDied = force/Health.STORM_TR;
+        noOfDied = Math.min(noOfDied,getHealth()/Health.STORM_TR);
         if (!attacker.getClass().equals(StormTroopers.class)){
             System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je poginulo "+noOfDied+
                     ", ostalo ih je još "+noAlive);

@@ -1,6 +1,5 @@
 package participants.rebelalliance.vehicles.spaceships;
 
-import demo.Health;
 import participants.Vehicle;
 import participants.WarParticipant;
 import weapons.DLT19HeavyBlasterRifle;
@@ -47,7 +46,7 @@ public class MillenniumFalcon extends Vehicle {
 
     @Override
     public String getName() {
-        return "Millenium Falcon";
+        return "Millennium Falcon";
     }
 
 
@@ -69,19 +68,20 @@ public class MillenniumFalcon extends Vehicle {
     @Override
     public void defend(WarParticipant attacker, int force) {
         //there is 50-50 chance that shield will be activated
-        if (random.nextInt(1)==0 && shieldHealth>0){
+        if (random.nextInt(2)==0 && shieldHealth>0){
             shieldHealth = shieldHealth - random.nextInt(20);
             System.out.println("Millennium Falcon  aktivira štit, ne možete mi ništa, stanje štita "+shieldHealth+"%");
         } else {
-            int fatality = (int)(random.nextInt(200)/(double)10000*force);
+            int fatality = (int)((random.nextInt(200)/(double)1000)*force);
             fatality = Math.min(fatality,getCrew());
-            System.out.println("U napadu na Millennium Falcon, poginulo "+fatality+" članova posade");
+            setCrew(getCrew()-fatality);
+            System.out.println("U napadu na "+getName()+" poginulo "+fatality+" članova posade, ostalo ih je još "+getCrew());
             if (getCrew()<=0){
-                System.out.println("Millennium Falcon nema posadu i samouništava se");
+                System.out.println(getName()+" nema posadu i samouništava se");
                 setHealth(0);
             } else{
                 setHealth(getHealth()-force);
-                System.out.println("Millennium Falcon pretrpila udarac jačine "+getHealth()+" ostalo još "+getHealth()+" snage.");
+                System.out.println(getName()+" pretrpila udarac jačine "+force+" ostalo još "+getHealth()+" snage.");
             }
         }
     }

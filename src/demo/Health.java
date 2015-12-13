@@ -20,6 +20,8 @@ public class Health {
     public static final int LUKE = 1000;
     public static final int YODA = 800;
     public static final int OBI_WAN = 600;
+    public static final int R2_D2 = 400;
+    public static final int C_3PO = 400;
     //flag which is set to true when war ends
     //every thread checks this flag and ends if it's set to false
     public static boolean isOver = true;

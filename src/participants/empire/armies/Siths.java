@@ -78,6 +78,7 @@ public class Siths extends Army {
         setHealth(getHealth() - force);
         int noAlive = getHealth()/Health.SITHS;
         int noOfDied = (int)Math.ceil(force/(double)Health.SITHS);
+        noOfDied = Math.min(noOfDied,getHealth()/Health.SITHS);
         System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je poginulo "+noOfDied+
                 ", ostalo ih je još "+noAlive);
     }

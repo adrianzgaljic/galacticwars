@@ -88,6 +88,7 @@ public class Ewoks extends Army {
             setHealth(getHealth() - force);
             int noAlive = getHealth()/Health.EWOKS;
             int noOfDied = force/Health.EWOKS;
+            noOfDied = Math.min(noOfDied,getHealth()/Health.EWOKS);
             System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je poginulo "+noOfDied+
                     ", ostalo ih je još "+noAlive);
         }

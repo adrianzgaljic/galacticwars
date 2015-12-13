@@ -61,7 +61,7 @@ public class Yoda extends WarParticipant {
     @Override
     public void defend(WarParticipant attacker, int force) {
         setHealth(getHealth()-force);
-        System.out.println(getName() + ": od "+attacker.getName()+" udarac primio sam, preostalo "+getHealth()+" zdravlja još mi je.");
+        System.out.println(getName() + ": od "+attacker.getName()+" udarac primio sam, preostalo "+getHealth()+" zdravlja još mi je");
 
     }
 

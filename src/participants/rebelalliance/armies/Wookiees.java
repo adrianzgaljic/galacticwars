@@ -76,6 +76,7 @@ public class Wookiees extends Army {
         setHealth(getHealth() - force);
         int noAlive = getHealth()/Health.WOOKIEES;
         int noOfDied = force/Health.WOOKIEES;
+        noOfDied = Math.min(noOfDied,getHealth()/Health.WOOKIEES);
         if (chewAlive && noOfDied>0 && random.nextInt(3)==0){
             System.out.println("Chewbacca je poginuo :(");
             chewAlive = false;

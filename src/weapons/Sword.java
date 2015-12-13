@@ -4,6 +4,7 @@ import participants.WarParticipant;
 
 /**
  * Created by adrianzgaljic on 12/12/15.
+ * Type of weapon used by Imperial Guards.
  */
 public class Sword implements Weapon {
 

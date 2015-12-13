@@ -49,7 +49,7 @@ public class Z74SpeederBike extends Vehicle {
         setHealth(getHealth() - force);
         int noAlive = getHealth()/Health.STORM_TR;
         int noOfDied = force/Health.STORM_TR;
-        int fatality = (int)(random.nextInt(200)/(double)10000*force);
+        int fatality = (int)(random.nextInt(200)/(double)1000*force);
         fatality = Math.min(fatality,getCrew());
         setCrew(getCrew() - fatality);
         System.out.println("U napadu na "+getName()+" poginulo "+fatality+" Stromtroopera.");

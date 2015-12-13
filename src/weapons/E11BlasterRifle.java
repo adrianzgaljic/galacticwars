@@ -4,6 +4,7 @@ import participants.WarParticipant;
 
 /**
  * Created by adrianzgaljic on 10/12/15.
+ * Type of weapon.
  */
 public class E11BlasterRifle implements Weapon {
 

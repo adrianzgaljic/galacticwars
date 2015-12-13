@@ -92,33 +92,41 @@ public abstract class WarParticipant implements Runnable {
         int targetIndex;
         //target enemy
         WarParticipant target;
+
+        //this delay ensures that all war participants are added to list of participants before someone starts
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println(getName()+" startao");
-        Long startTime;
 
         while (getHealth() > 0 && !Health.isOver) {
             started = true;
+
             numberOfEnemies = enemyParticipants.size();
             if (numberOfEnemies>0){
                 targetIndex = random.nextInt(numberOfEnemies);
                 target = enemyParticipants.get(targetIndex);
-                if (target.started){
+                //in case target isn't started yet, or already died but yet isn't removed from the list
+                if (target.started && target.getHealth()>0){
                     attack(target);
                 }
             }
             time = MIN_ATTACK_INTERVAL+ random.nextInt(MAX_ATTACK_INTERVAL-MIN_ATTACK_INTERVAL);
 
-            startTime = System.currentTimeMillis();
-            while(System.currentTimeMillis()-startTime<time && getHealth()>0){
-                try {
-                    Thread.sleep(5);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            try {
+                Thread.sleep(time);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
 
 
         }
-        System.out.println(getName() + " umireeem");
+        if (!Health.isOver){
+            System.out.println(getName() + " umireeem");
+        }
+
 
         //remove itself from enemy list of enemies when dead
         if (enemyParticipants.size()>0){

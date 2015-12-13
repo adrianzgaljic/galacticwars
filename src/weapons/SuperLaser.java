@@ -4,6 +4,7 @@ import participants.WarParticipant;
 
 /**
  * Created by adrianzgaljic on 10/12/15.
+ * Very powerful type of weapon.
  */
 public class SuperLaser implements Weapon {
 

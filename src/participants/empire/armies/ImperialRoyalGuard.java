@@ -63,7 +63,7 @@ public class ImperialRoyalGuard extends Army {
                 weapons.get(random.nextInt(weapons.size())).fire(target, this, noOfShooting);
             }
         } else{
-            System.out.println(getName()+" kreću napasti "+target+" ali shvaćaju da je Darth Sidious mrtav \ni bezvoljno odustaju");
+            System.out.println(getName()+" kreću napasti "+target.getName()+" ali shvaćaju da je Darth Sidious mrtav \ni bezvoljno odustaju");
         }
 
     }
@@ -72,8 +72,9 @@ public class ImperialRoyalGuard extends Army {
     public void defend(WarParticipant attacker, int force) {
         force = quantify(force,Health.IMPERIAL_GUARD);
         setHealth(getHealth() - force);
-        int noAlive = getHealth()/10;
-        int noOfDied = force/10;
+        int noAlive = getHealth()/Health.IMPERIAL_GUARD;
+        int noOfDied = force/Health.IMPERIAL_GUARD;
+        noOfDied = Math.min(noOfDied,getHealth()/Health.IMPERIAL_GUARD);
         System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je poginulo "+noOfDied+
                 ", ostalo ih je još "+noAlive);
     }

@@ -78,6 +78,7 @@ public class Jedis extends Army {
         setHealth(getHealth() - force);
         int noAlive = getHealth()/Health.JEDIS;
         int noOfDied = force/Health.JEDIS;
+        noOfDied = Math.min(noOfDied,getHealth()/Health.JEDIS);
         System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je poginulo "+noOfDied+
                 ", ostalo ih je još "+noAlive);
     }

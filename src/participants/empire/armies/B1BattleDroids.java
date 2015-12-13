@@ -72,6 +72,7 @@ public class B1BattleDroids extends Army {
         setHealth(getHealth() - force);
         int noAlive = getHealth()/Health.B1_BATTLE_DROID;
         int noOfDied = force/Health.B1_BATTLE_DROID;
+        noOfDied = Math.min(noOfDied,getHealth()/Health.B1_BATTLE_DROID);
         System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je uništeno "+noOfDied+
                 ", ostalo ih je još "+noAlive);
     }

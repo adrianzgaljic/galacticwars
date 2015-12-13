@@ -61,7 +61,7 @@ public class ImperialStarDestroyer extends Vehicle {
     @Override
     public void attack(WarParticipant target) {
         if (random.nextInt(3)==0){
-            System.out.println("ImperialStarDestroyer puca na "+target+" ali promašuje.");
+            System.out.println("ImperialStarDestroyer puca na "+target.getName()+" ali promašuje.");
         } else {
             weapons.get(random.nextInt(weapons.size())).fire(target, this,1);
         }
@@ -75,7 +75,7 @@ public class ImperialStarDestroyer extends Vehicle {
             shieldHealth = shieldHealth - random.nextInt(30);
             System.out.println("Imperial Star Destroyer aktivira štit, ne možete mi ništa, stanje štita "+shieldHealth+"%");
         } else {
-            int fatality = (int)(random.nextInt(200)/(double)10000*force);
+            int fatality = (int)(random.nextInt(200)/(double)1000*force);
             fatality = Math.min(fatality,getCrew());
             System.out.println("U napadu na Imperial Star Destroye, poginulo "+fatality+" članova posade");
             if (getCrew()<=0){

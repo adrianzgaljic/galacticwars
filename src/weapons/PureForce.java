@@ -4,6 +4,7 @@ import participants.WarParticipant;
 
 /**
  * Created by adrianzgaljic on 11/12/15.
+ * Type of weapon used by some of the Siths and Jedis.
  */
 public class PureForce implements Weapon {
 

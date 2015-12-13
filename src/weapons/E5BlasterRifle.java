@@ -8,6 +8,7 @@ import java.util.Random;
 
 /**
  * Created by adrianzgaljic on 12/12/15.
+ * Type of weapon.
  */
 public class E5BlasterRifle implements Weapon {
 

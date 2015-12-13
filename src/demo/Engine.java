@@ -18,9 +18,7 @@ import participants.rebelalliance.armies.Droideka;
 import participants.rebelalliance.armies.Ewoks;
 import participants.rebelalliance.armies.Jedis;
 import participants.rebelalliance.armies.Wookiees;
-import participants.rebelalliance.characters.LukeSkywalker;
-import participants.rebelalliance.characters.ObiWanKenobi;
-import participants.rebelalliance.characters.Yoda;
+import participants.rebelalliance.characters.*;
 import participants.rebelalliance.vehicles.landvehicles.LAAT;
 import participants.rebelalliance.vehicles.landvehicles.Podracer;
 import participants.rebelalliance.vehicles.spaceships.Delta7BInterceptor;
@@ -54,8 +52,8 @@ public class Engine {
     public void startWar(){
 
         Health.isOver = false;
-        empireNo = getNumber("Imperija");
-        rebelNo = getNumber("Pobunjeničkog otpora");
+        empireNo = 5;//getNumber("Imperija");
+        rebelNo = 5;//getNumber("Pobunjeničkog otpora");
 
 
         if (empireNo==0 && rebelNo==0){
@@ -109,6 +107,7 @@ public class Engine {
                         for (WarParticipant w:rebelParticipants){
                             System.out.println(w.getName()+" health: "+w.getHealth());
                         }
+                        Health.isOver=true;
                         break;
                     } else if (rebelParticipants.isEmpty()){
                         System.out.println("----------------------------------");
@@ -117,6 +116,7 @@ public class Engine {
                         for (WarParticipant w:empireParticipants){
                             System.out.println(w.getName()+" health: "+w.getHealth());
                         }
+                        Health.isOver=true;
                         break;
                     }
                 }
@@ -230,10 +230,10 @@ public class Engine {
 
         if (wookieeCrew>=15){
             System.out.println("20 Wookieea ulazi u Millennium Falcon");
-            wookieeCrew = wookieeCrew-15;
+            wookieeCrew = wookieeCrew-20;
             MillenniumFalcon millenniumFalcon = MillenniumFalcon.getInstance();
             millenniumFalcon.setHealth(5000);
-            millenniumFalcon.setCrew(15);
+            millenniumFalcon.setCrew(20);
             addRebelParticipant(millenniumFalcon);
         }
 
@@ -383,6 +383,20 @@ public class Engine {
             ObiWanKenobi obiWanKenobi = ObiWanKenobi.getInstance();
             obiWanKenobi.setHealth(Health.OBI_WAN);
             addRebelCharacter(obiWanKenobi);
+        }
+
+        if (n>3){
+            C3PO c3PO = C3PO.getInstance();
+            c3PO.setHealth(Health.C_3PO);
+            addRebelCharacter(c3PO);
+
+        }
+
+        if (n>4){
+            R2D2 r2D2 = R2D2.getInstance();
+            r2D2.setHealth(Health.R2_D2);
+            addRebelCharacter(r2D2);
+
         }
 
     }

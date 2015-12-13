@@ -70,7 +70,8 @@ public class Droideka extends Army {
         force = quantify(force,Health.DROIDEKA);
         setHealth(getHealth() - force);
         int noAlive = getHealth()/Health.DROIDEKA;
-        int noOfDied = force/Health.DROIDEKA;
+        int noOfDied = (int)Math.ceil(force/(double)Health.DROIDEKA);
+        noOfDied = Math.min(noOfDied,getHealth()/Health.DROIDEKA);
         System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je uništeno "+noOfDied+
                 ", ostalo ih je još "+noAlive);
     }
