@@ -13,6 +13,7 @@ import java.util.Random;
 
 /**
  * Created by adrianzgaljic on 10/12/15.
+ * DeathStar is singleton class which represents Death Star, moon-sized deep space mobile battle station constructed by the Galactic Empire.
  */
 public class DeathStar extends Vehicle {
 
@@ -32,11 +33,6 @@ public class DeathStar extends Vehicle {
     );
 
     /**
-     * name of character
-     */
-    private final String name = "Death star";
-
-    /**
      * only instance of DeathStar class
      */
     private static  DeathStar deathStar  = new DeathStar();
@@ -49,11 +45,8 @@ public class DeathStar extends Vehicle {
 
     @Override
     public String getName() {
-        return name;
+        return "Death star";
     }
-
-
-
 
     /**
      * getter for only instance of DeathStar class
@@ -77,6 +70,7 @@ public class DeathStar extends Vehicle {
         } else {
             int fatality = (int)(random.nextInt(200)/(double)10000*force);
             System.out.println("U napadu na zvijezdu smrti, poginulo "+fatality+" članova posade");
+            setCrew(getCrew()-fatality);
             if (getCrew()<=0){
                 System.out.println("Death star nema posadu i samouništava se");
                 setHealth(0);

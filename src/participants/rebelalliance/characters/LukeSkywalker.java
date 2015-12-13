@@ -1,6 +1,7 @@
 package participants.rebelalliance.characters;
 
 import participants.WarParticipant;
+import participants.empire.characters.DarthVader;
 import weapons.*;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.Random;
 
 /**
  * Created by adrianzgaljic on 09/12/15.
- * LukeSkywalker is singleton class which represents Jedi Luke Skywalker
+ * LukeSkywalker is singleton class which represents Jedi Luke Skywalker.
  */
 public class LukeSkywalker extends WarParticipant {
 
@@ -24,11 +25,6 @@ public class LukeSkywalker extends WarParticipant {
 
 
     /**
-     * name of character
-     */
-    private final String name = "Luke Skywalker";
-
-    /**
      * only instance of LukeSkywalker  class
      */
     private static  LukeSkywalker lukeSkywalker  = new LukeSkywalker();
@@ -37,11 +33,12 @@ public class LukeSkywalker extends WarParticipant {
      * private Constructor prevents any other
      * class from instantiating
      */
-    private LukeSkywalker(){}
+    private LukeSkywalker(){
+    }
 
     @Override
     public String getName() {
-        return name;
+        return "Luke Skywalker";
     }
 
 
@@ -65,7 +62,13 @@ public class LukeSkywalker extends WarParticipant {
 
     @Override
     public void defend(WarParticipant attacker, int force) {
-
+        if (attacker.getClass().equals(DarthVader.class)){
+            if (random.nextInt(2)==0){
+                System.out.println(getName()+": Nooooo!");
+            } else {
+                switchSides();
+            }
+        }
 
         setHealth(getHealth()-force);
         System.out.println(getName() + " primio udarac od "+attacker.getName()+", još mu je preostalo "+getHealth()+" zdravlja");

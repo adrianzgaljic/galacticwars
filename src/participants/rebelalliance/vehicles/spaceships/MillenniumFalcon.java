@@ -13,10 +13,16 @@ import java.util.Random;
 
 /**
  * Created by adrianzgaljic on 10/12/15.
+ * Singleton class, implementation of Millennium Flacon, light freighter used by the rebel allience.
  */
 public class MillenniumFalcon extends Vehicle {
 
     private Random random = new Random();
+
+    /**
+     * when under attack, death star can activate shield which gets damaged and eventually destroyed
+     */
+    private int shieldHealth = 100;
 
     /**
      * war participants weapons
@@ -26,11 +32,6 @@ public class MillenniumFalcon extends Vehicle {
             new E11BlasterRifle(),
             new SuperLaser())
     );
-
-    /**
-     * name of character
-     */
-    private final String name = "Millenium Falcon";
 
     /**
      * only instance of MillenniumFalcon class
@@ -45,7 +46,7 @@ public class MillenniumFalcon extends Vehicle {
 
     @Override
     public String getName() {
-        return name;
+        return "Millenium Falcon";
     }
 
 
@@ -66,6 +67,20 @@ public class MillenniumFalcon extends Vehicle {
 
     @Override
     public void defend(WarParticipant attacker, int force) {
-        System.out.println("Millennium Falcon aktivira štit, nemreš mi ništa");
+        //there is 50-50 chance that shield will be activated
+        if (random.nextInt(1)==0 && shieldHealth>0){
+            shieldHealth = shieldHealth - random.nextInt(20);
+            System.out.println("Millennium Falcon  aktivira štit, ne možete mi ništa, stanje štita "+shieldHealth+"%");
+        } else {
+            int fatality = (int)(random.nextInt(200)/(double)10000*force);
+            System.out.println("U napadu na Millennium Falcon, poginulo "+fatality+" članova posade");
+            if (getCrew()<=0){
+                System.out.println("Millennium Falcon nema posadu i samouništava se");
+                setHealth(0);
+            } else{
+                setHealth(getHealth()-force);
+                System.out.println("Millennium Falcon pretrpila udarac jačine "+getHealth()+" ostalo još "+getHealth()+" snage.");
+            }
+        }
     }
 }

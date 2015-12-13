@@ -42,8 +42,10 @@ public class Z74SpeederBike extends Vehicle {
     @Override
     public void attack(WarParticipant target) {
         int noOfSpee = getHealth()/ Health.STORM_TR;
-        int noOfShooting = random.nextInt(noOfSpee);
-        weapons.get(random.nextInt(weapons.size())).fire(target, this,noOfShooting);
+        if (noOfSpee>0){
+            int noOfShooting = 1+random.nextInt(noOfSpee);
+            weapons.get(random.nextInt(weapons.size())).fire(target, this,noOfShooting);
+        }
     }
 
     @Override
@@ -51,8 +53,16 @@ public class Z74SpeederBike extends Vehicle {
         setHealth(getHealth() - force);
         int noAlive = getHealth()/Health.STORM_TR;
         int noOfDied = force/Health.STORM_TR;
-        System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je uništeno "+noOfDied+
-                ", ostalo ih je još "+noAlive);
+        int fatality = (int)(random.nextInt(200)/(double)10000*force);
+        setCrew(getCrew() - fatality);
+        System.out.println("U napadu na "+getName()+" poginulo "+fatality+" Stromtroopera.");
+        if (getCrew()==0){
+            System.out.println(getName()+" ostaju bez posade te prestaju s radom.");
+            setHealth(0);
+        } else {
+            System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je uništeno "+noOfDied+
+                    ", ostalo ih je još "+noAlive);
+        }
     }
 }
 

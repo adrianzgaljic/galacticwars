@@ -5,7 +5,6 @@ import participants.Vehicle;
 import participants.WarParticipant;
 import weapons.DLT19HeavyBlasterRifle;
 import weapons.E11BlasterRifle;
-import weapons.SuperLaser;
 import weapons.Weapon;
 
 import java.util.ArrayList;
@@ -14,6 +13,7 @@ import java.util.Random;
 
 /**
  * Created by adrianzgaljic on 10/12/15.
+ * Executor is singleton class which represents personal flagship of the Dark Lord of the Sith Darth Vader.
  */
 public class Executor  extends Vehicle {
 
@@ -27,16 +27,29 @@ public class Executor  extends Vehicle {
             new E11BlasterRifle())
     );
 
-    /**
-     * name of character
-     */
-    private final String name = "Executor";
-
-
 
     @Override
     public String getName() {
-        return name;
+        return "Executor";
+    }
+
+    /**
+     * only instance of Executor class
+     */
+    private static  Executor executor  = new Executor();
+
+    /**
+     * private Constructor prevents any other
+     * class from instantiating
+     */
+    private Executor(){}
+
+    /**
+     * getter for only instance of DeathStar class
+     * @return DeathStar instance
+     */
+    public static Executor getInstance(){
+        return executor;
     }
 
 
@@ -44,8 +57,10 @@ public class Executor  extends Vehicle {
     @Override
     public void attack(WarParticipant target) {
         int noOfExecutors = getHealth()/ Health.STORM_TR;
-        int noOfShooting = random.nextInt(noOfExecutors);
-        weapons.get(random.nextInt(weapons.size())).fire(target, this,noOfShooting);
+        if (noOfExecutors>0){
+            int noOfShooting = 1+random.nextInt(noOfExecutors);
+            weapons.get(random.nextInt(weapons.size())).fire(target, this,noOfShooting);
+        }
     }
 
     @Override

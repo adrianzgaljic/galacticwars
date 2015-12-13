@@ -1,6 +1,7 @@
 package participants.empire.armies;
 
 import demo.Health;
+import participants.Army;
 import participants.WarParticipant;
 import weapons.*;
 
@@ -10,8 +11,9 @@ import java.util.Random;
 
 /**
  * Created by adrianzgaljic on 10/12/15.
+ * StormTroopers is singleton class which represents StormTrooper army, original elite soldiers of the Galactic Empire
  */
-public class StormTroopers extends WarParticipant {
+public class StormTroopers extends Army {
 
     private Random random = new Random();
 
@@ -25,11 +27,6 @@ public class StormTroopers extends WarParticipant {
     );
 
     /**
-     * name of character
-     */
-    private final String name = "Storm Troopers";
-
-    /**
      * only instance of StormTroopers class
      */
     private static  StormTroopers stormTroopers  = new StormTroopers();
@@ -38,11 +35,12 @@ public class StormTroopers extends WarParticipant {
      * private Constructor prevents any other
      * class from instantiating
      */
-    private StormTroopers(){}
+    private StormTroopers(){
+    }
 
     @Override
     public String getName() {
-        return name;
+        return  "Storm Troopers";
     }
 
 
@@ -59,28 +57,32 @@ public class StormTroopers extends WarParticipant {
 
     @Override
     public void attack(WarParticipant target) {
-        int noOfDroids = getHealth()/ Health.STORM_TR;
-        int noOfShooting = 1+random.nextInt(noOfDroids);
-        weapons.get(random.nextInt(weapons.size())).fire(target, this, noOfShooting);
-        int chance = random.nextInt(5);
-        if (chance==0){
-            int fatality = (random.nextInt(4)+1);
-            System.out.println("Smotani Stormtrooperi su u napadu uspjeli ubiti "+fatality+" svojih vojnika");
-            defend(this,fatality*Health.STORM_TR);
+        int noOfStormTr = getHealth()/ Health.STORM_TR;
+        if (noOfStormTr>0){
+            int noOfShooting = 1+random.nextInt(noOfStormTr);
+            weapons.get(random.nextInt(weapons.size())).fire(target, this, noOfShooting);
+            int chance = random.nextInt(5);
+            if (chance==0){
+                //fatality can be 4 or less
+                int fatality = (random.nextInt(Math.min(4,getHealth()/ Health.STORM_TR))+1);
+                System.out.println("Smotani Stormtrooperi su u napadu uspjeli ubiti "+fatality+" svojih vojnika");
+                defend(this,fatality*Health.STORM_TR);
+            }
         }
-
     }
 
     @Override
     public void defend(WarParticipant attacker, int force) {
+        force = quantify(force, Health.STORM_TR);
         setHealth(getHealth() - force);
-        int noAlive = getHealth()/10;
-        int noOfDied = force/10;
-        //TODO provjeri ak ovo radi
-        if (!attacker.getClass().equals(this.getClass())){
+        int noAlive = getHealth()/Health.STORM_TR;
+        int noOfDied = force/Health.STORM_TR;
+        if (!attacker.getClass().equals(StormTroopers.class)){
             System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je poginulo "+noOfDied+
                     ", ostalo ih je još "+noAlive);
         }
 
     }
+
+
 }

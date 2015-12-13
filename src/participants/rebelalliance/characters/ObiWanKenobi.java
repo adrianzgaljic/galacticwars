@@ -6,6 +6,7 @@ import weapons.Weapon;
 
 /**
  * Created by adrianzgaljic on 11/12/15.
+ * Singleton class which represents Jedi Obi-Wan Kenobi.
  */
 public class ObiWanKenobi extends WarParticipant {
 
@@ -16,11 +17,6 @@ public class ObiWanKenobi extends WarParticipant {
 
 
     /**
-     * name of character
-     */
-    private final String name = "Obi-Wan Kenobi";
-
-    /**
      * only instance of ObiWanKenobi class
      */
     private static ObiWanKenobi obiWanKenobi = new ObiWanKenobi();
@@ -29,15 +25,13 @@ public class ObiWanKenobi extends WarParticipant {
      * private Constructor prevents any other
      * class from instantiating
      */
-    private ObiWanKenobi(){}
+    private ObiWanKenobi(){
+    }
 
     @Override
     public String getName() {
-        return name;
+        return "Obi-Wan Kenobi";
     }
-
-
-
 
     /**
      * getter for only instance of ObiWanKenobi  class
@@ -50,6 +44,9 @@ public class ObiWanKenobi extends WarParticipant {
 
     @Override
     public void attack(WarParticipant target) {
+        if (target.getClass().equals(LukeSkywalker.class)){
+            System.out.println("Izdao si nas "+target.getName()+" sada ćeš platiti!");
+        }
         weapon.fire(target,this,1);
 
 
@@ -57,11 +54,13 @@ public class ObiWanKenobi extends WarParticipant {
 
     @Override
     public void defend(WarParticipant attacker, int force) {
-
-
-        setHealth(getHealth()-force);
-        System.out.println(getName() + " primio udarac od "+attacker.getName()+", još mu je preostalo "+getHealth()+" zdravlja");
-
+        if (attacker.getClass().equals(LukeSkywalker.class)){
+            setHealth(getHealth()-force*2);
+            System.out.println(getName() + " primio udarac od " + attacker.getName() + "\n zbog izdaje bol je još veća, još mu je preostalo " + getHealth() + " zdravlja");
+        } else {
+            setHealth(getHealth()-force);
+            System.out.println(getName() + " primio udarac od "+attacker.getName()+", još mu je preostalo "+getHealth()+" zdravlja");
+        }
     }
 
 }

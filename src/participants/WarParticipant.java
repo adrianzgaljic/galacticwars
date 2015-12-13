@@ -1,5 +1,7 @@
 package participants;
-import weapons.Weapon;
+
+
+import demo.Health;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,6 +24,12 @@ public abstract class WarParticipant implements Runnable {
 
     Random random = new Random();
 
+    /**
+     * flag which is set when war participant starts
+     * by default set to false to prevent striking target which hasn't started
+      */
+    private boolean started = false;
+
 
 
     /**
@@ -30,12 +38,6 @@ public abstract class WarParticipant implements Runnable {
      */
     private int health;
 
-
-    /**
-     * randomly generated unique identification number
-     * id is generated outside this class
-     */
-    private String id;
 
     /**
      * list of war participans on the opposite side (enemies)
@@ -54,20 +56,19 @@ public abstract class WarParticipant implements Runnable {
         this.health = health;
     }
 
+    /**
+     * war participant's health can be reduced to less than zero when attacked with greater force than health left
+     * it's not possible to have negative health, so this method returns 0 for all health values <=0
+     * @return health
+     */
     public int getHealth() {
-        return health;
+        if (health<=0){
+            return  0;
+        } else {
+            return health;
+        }
+
     }
-
-
-    public String getId() {
-        return id;
-    }
-
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
 
     public void setEnemyParticipants(ArrayList<WarParticipant> enemyParticipants) {
         this.enemyParticipants = enemyParticipants;
@@ -77,45 +78,65 @@ public abstract class WarParticipant implements Runnable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
-
+    /**
+     * This method is called when war participant is starded, it represents participant's life cycle
+     */
     @Override
     public void run() {
+        //time between attacks
         int time;
+        //number of enemiy participants
         int numberOfEnemies;
+        //index of randomly choosen enemy
         int targetIndex;
-        WarParticipant target = null;
+        //target enemy
+        WarParticipant target;
         System.out.println(getName()+" startao");
-        Long startTime = System.currentTimeMillis();
-        while (getHealth() > 0) {
-            time = MIN_ATTACK_INTERVAL+ random.nextInt(MAX_ATTACK_INTERVAL-MIN_ATTACK_INTERVAL);
-            try {
-                Thread.sleep(time);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        Long startTime;
 
-
+        while (getHealth() > 0 && !Health.isOver) {
+            started = true;
             numberOfEnemies = enemyParticipants.size();
             if (numberOfEnemies>0){
                 targetIndex = random.nextInt(numberOfEnemies);
                 target = enemyParticipants.get(targetIndex);
-                attack(target);
+                if (target.started){
+                    attack(target);
+                }
+            }
+            time = MIN_ATTACK_INTERVAL+ random.nextInt(MAX_ATTACK_INTERVAL-MIN_ATTACK_INTERVAL);
+
+            startTime = System.currentTimeMillis();
+            while(System.currentTimeMillis()-startTime<time && getHealth()>0){
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
 
         }
         System.out.println(getName() + " umireeem");
-        try{
-            target.enemyParticipants.remove(this);
-        }catch(NullPointerException e){
-            System.err.println("Target isn't initialized");
+
+        //remove itself from enemy list of enemies when dead
+        if (enemyParticipants.size()>0){
+                enemyParticipants.get(0).enemyParticipants.remove(this);
         }
 
+    }
 
+    /**
+     * method called when army participant
+     */
+    public void switchSides(){
+        System.out.println(getName() + " prelazi na suparničku stranu");
+        enemyParticipants.add(this);
+        if (enemyParticipants.size()>0){
+            enemyParticipants.get(0).enemyParticipants.remove(this);
+            this.enemyParticipants = enemyParticipants.get(0).enemyParticipants;
+        }
     }
 
     /**

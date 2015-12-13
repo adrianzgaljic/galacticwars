@@ -1,6 +1,7 @@
 package participants.empire.armies;
 
 import demo.Health;
+import participants.Army;
 import participants.WarParticipant;
 import weapons.*;
 
@@ -13,7 +14,7 @@ import java.util.Random;
  * B1 Battle droids are military force used by Galactic Empire.
  * Each of them has 5 points of health.
  */
-public class B1BattleDroids extends WarParticipant {
+public class B1BattleDroids extends Army {
 
     private Random random = new Random();
 
@@ -27,11 +28,6 @@ public class B1BattleDroids extends WarParticipant {
     );
 
     /**
-     * name of character
-     */
-    private final String name = "B1 Battle droids";
-
-    /**
      * only instance of B1BattleDroids class
      */
     private static  B1BattleDroids b1BattleDroids = new B1BattleDroids();
@@ -40,11 +36,12 @@ public class B1BattleDroids extends WarParticipant {
      * private Constructor prevents any other
      * class from instantiating
      */
-    private B1BattleDroids(){}
+    private B1BattleDroids(){
+    }
 
     @Override
     public String getName() {
-        return name;
+        return "B1 Battle droids";
     }
 
 
@@ -62,17 +59,21 @@ public class B1BattleDroids extends WarParticipant {
     @Override
     public void attack(WarParticipant target) {
         int noOfDroids = getHealth()/ Health.B1_BATTLE_DROID;
-        int noOfShooting = 1+random.nextInt(noOfDroids);
-        weapons.get(random.nextInt(weapons.size())).fire(target, this, noOfShooting);
+        if (noOfDroids>0){
+            int noOfShooting = 1+random.nextInt(noOfDroids);
+            weapons.get(random.nextInt(weapons.size())).fire(target, this, noOfShooting);
+        }
+
     }
 
     @Override
     public void defend(WarParticipant attacker, int force) {
+        force = quantify(force,Health.B1_BATTLE_DROID);
         setHealth(getHealth() - force);
         int noAlive = getHealth()/Health.B1_BATTLE_DROID;
         int noOfDied = force/Health.B1_BATTLE_DROID;
         System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je uništeno "+noOfDied+
-                ", ostalo ih je još "+noAlive+" health="+getHealth());
+                ", ostalo ih je još "+noAlive);
     }
 }
 

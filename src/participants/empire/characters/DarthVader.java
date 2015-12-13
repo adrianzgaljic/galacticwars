@@ -1,6 +1,7 @@
 package participants.empire.characters;
 
 import participants.WarParticipant;
+import participants.rebelalliance.characters.LukeSkywalker;
 import weapons.LightSaber;
 import weapons.PureForce;
 import weapons.Weapon;
@@ -18,18 +19,12 @@ public class DarthVader extends WarParticipant {
 
         Random random = new Random();
 
-    /**
-     * war participants weapons
-     */
-    ArrayList<Weapon> weapons = new ArrayList<>(Arrays.asList(
+        /**
+        * war participants weapons
+        */
+        ArrayList<Weapon> weapons = new ArrayList<>(Arrays.asList(
             new LightSaber("red", 120), new PureForce()));
 
-
-
-    /**
-         * name of character
-         */
-        private final String name = "Darth Vader";
 
         /**
          * only instance of DarthVader class
@@ -40,14 +35,13 @@ public class DarthVader extends WarParticipant {
          * private Constructor prevents any other
          * class from instantiating
          */
-        private DarthVader(){}
+        private DarthVader(){
+        }
 
         @Override
         public String getName() {
-            return name;
+            return "Darth Vader";
         }
-
-
 
 
         /**
@@ -61,16 +55,19 @@ public class DarthVader extends WarParticipant {
 
         @Override
         public void attack(WarParticipant target) {
-            weapons.get(random.nextInt(weapons.size())).fire(target, this,1);
-
-
+            if (target.getClass().equals(LukeSkywalker.class)){
+                System.out.println(getName() + ": Luke come to the dark side!");
+            }
+            weapons.get(random.nextInt(weapons.size())).fire(target, this, 1);
 
         }
 
         @Override
         public void defend(WarParticipant attacker, int force) {
 
-
+            if (attacker.getClass().equals(LukeSkywalker.class)){
+                System.out.println(getName()+": I'm your father Lukeee!");
+            }
             setHealth(getHealth()-force);
             System.out.println(getName() + " primio udarac od "+attacker.getName()+", još mu je preostalo "+getHealth()+" zdravlja");
 

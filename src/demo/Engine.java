@@ -1,6 +1,5 @@
 package demo;
 
-import com.javafx.tools.doclets.formats.html.SourceToHTMLConverter;
 import participants.WarParticipant;
 import participants.empire.armies.B1BattleDroids;
 import participants.empire.armies.ImperialRoyalGuard;
@@ -30,12 +29,15 @@ import participants.rebelalliance.vehicles.spaceships.T47Airspeeder;
 import participants.rebelalliance.vehicles.spaceships.T64XWing;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
 /**
  * Created by adrianzgaljic on 11/12/15.
+ * This is the implementation of game engine.
+ * It asks for user input and then initializes armies of both sides and starts all war participants.
+ *
+ *
  */
 public class Engine {
 
@@ -51,9 +53,7 @@ public class Engine {
 
     public void startWar(){
 
-
-
-        Scanner scan = new Scanner(System.in);
+        Health.isOver = false;
         empireNo = getNumber("Imperija");
         rebelNo = getNumber("Pobunjeničkog otpora");
 
@@ -93,6 +93,37 @@ public class Engine {
             sendToWar(empireParticipants);
         }
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true){
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (empireParticipants.isEmpty()){
+                        System.out.println("----------------------------------");
+                        System.out.println("Rebel pobjedili");
+                        System.out.println("pobjednička vojska:");
+                        for (WarParticipant w:rebelParticipants){
+                            System.out.println(w.getName()+" health: "+w.getHealth());
+                        }
+                        break;
+                    } else if (rebelParticipants.isEmpty()){
+                        System.out.println("----------------------------------");
+                        System.out.println("Empire pobjeđuje");
+                        System.out.println("pobjednička vojska:");
+                        for (WarParticipant w:empireParticipants){
+                            System.out.println(w.getName()+" health: "+w.getHealth());
+                        }
+                        break;
+                    }
+                }
+
+            }
+        }).start();
+
 
     }
 
@@ -118,6 +149,7 @@ public class Engine {
             stormTrCrew = stormTrCrew-5;
             ImperialStarDestroyer imperialSD = ImperialStarDestroyer.getInstance();
             imperialSD.setHealth(5000);
+            imperialSD.setCrew(5);
             addEmpireParticipant(imperialSD);
         }
 
@@ -128,20 +160,24 @@ public class Engine {
 
         if (executorCrew>0){
             System.out.println(executorCrew+" Stormtroopera pripremaju "+executorCrew+" Executor letjelica");
-            Executor executorAirCrafts = new Executor();
+            Executor executorAirCrafts = Executor.getInstance();
             executorAirCrafts.setHealth(executorCrew*Health.STORM_TR);
             addEmpireParticipant(executorAirCrafts);
         }
         if (atAtCrew>0){
-            System.out.println(atAtCrew+" Stormtroopera ulaze u " + atAtCrew / 2 + " AT-AT hodaća");
+            //each AT-AT can take 1 or 2 Stromtroopers
+            System.out.println(atAtCrew + " Stormtroopera ulaze u " + (int)Math.ceil(atAtCrew/(float)2) + " AT-AT hodaća");
             AtAt atAt = new AtAt();
             atAt.setHealth(atAtCrew*Health.STORM_TR);
+            atAt.setCrew(atAtCrew);
             addEmpireParticipant(atAt);
         }
         if (atStCrew>0){
-            System.out.println(atStCrew+" Stormtroopera ulaze u " + atStCrew / 2 + " AT-ST hodaća");
+            //each AT-AT can take 1 or 2 Stromtroopers
+            System.out.println(atStCrew + " Stormtroopera ulaze u " + (int)Math.ceil(atStCrew/(float)2) + " AT-ST hodaća");
             AtSt atSt = new AtSt();
             atSt.setHealth(atStCrew*Health.STORM_TR);
+            atSt.setCrew(atStCrew);
             addEmpireParticipant(atSt);
         }
         if (speederCrew>0){
@@ -239,6 +275,7 @@ public class Engine {
             laat.setHealth(laatCrew * Health.WOOKIEES);
             laat.setCrew(laatCrew);
             addRebelParticipant(laat);
+            System.out.println(laatCrew+ "Wookiee ulazi u LAAT/i transportera");
         }
 
         if (podracerCrew>0){
@@ -246,6 +283,7 @@ public class Engine {
             podracer.setHealth(podracerCrew*Health.WOOKIEES);
             podracer.setCrew(podracerCrew);
             addRebelParticipant(podracer);
+            System.out.println(podracerCrew+" Wookiee ulazi u Podracere");
         }
 
         if (wookieeInfantry>0){
@@ -284,7 +322,11 @@ public class Engine {
     }
 
 
-
+    /**
+     * Method which asks for user input until positive number is given.
+     * @param army name of army
+     * @return number of soldiers
+     */
     private int getNumber(String army){
         int n=-1;
         Scanner scan;
@@ -308,17 +350,17 @@ public class Engine {
 
         if (n>0){
             DarthVader darthVader = DarthVader.getInstance();
-            darthVader.setHealth(1000);
+            darthVader.setHealth(Health.DARTH_VADER);
             addEmpireCharacter(darthVader);
         }
         if (n>1){
             DarthSidious darthSidious = DarthSidious.getInstance();
-            darthSidious.setHealth(800);
+            darthSidious.setHealth(Health.DARTH_SIDIOUS);
             addEmpireCharacter(darthSidious);
         }
         if (n>2){
             DarthMaul darthMaul = DarthMaul.getInstance();
-            darthMaul.setHealth(400);
+            darthMaul.setHealth(Health.DARTH_MAUL);
             addEmpireCharacter(darthMaul);
         }
 
@@ -328,18 +370,18 @@ public class Engine {
 
         if (n>0){
             LukeSkywalker lukeSkywalker = LukeSkywalker.getInstance();
-            lukeSkywalker.setHealth(1000);
+            lukeSkywalker.setHealth(Health.LUKE);
             addRebelCharacter(lukeSkywalker);
         }
         if (n>1){
             Yoda yoda = Yoda.getInstance();
-            yoda.setHealth(800);
+            yoda.setHealth(Health.YODA);
             addRebelCharacter(yoda);
 
         }
         if (n>2){
             ObiWanKenobi obiWanKenobi = ObiWanKenobi.getInstance();
-            obiWanKenobi.setHealth(600);
+            obiWanKenobi.setHealth(Health.OBI_WAN);
             addRebelCharacter(obiWanKenobi);
         }
 
@@ -374,6 +416,7 @@ public class Engine {
             new Thread(participant).start();
         }
     }
+
 
 
 

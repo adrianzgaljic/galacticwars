@@ -11,6 +11,8 @@ import java.util.Random;
 
 /**
  * Created by adrianzgaljic on 10/12/15.
+ * AtAt class represents the All Terrain Armored Transport (AT-AT), a four-legged combat walker
+ * used by the ground forces of the Galactic Empire.
  */
 public class AtAt extends Vehicle {
 
@@ -24,16 +26,10 @@ public class AtAt extends Vehicle {
             new E11BlasterRifle())
     );
 
-    /**
-     * name of character
-     */
-    private final String name = "AT-AT";
-
-
 
     @Override
     public String getName() {
-        return name;
+        return "AT-AT";
     }
 
 
@@ -41,8 +37,10 @@ public class AtAt extends Vehicle {
     @Override
     public void attack(WarParticipant target) {
         int noOfAtat = getHealth()/ Health.STORM_TR;
-        int noOfShooting = random.nextInt(noOfAtat);
-        weapons.get(random.nextInt(weapons.size())).fire(target, this,noOfShooting);
+        if (noOfAtat>0){
+            int noOfShooting = 1+random.nextInt(noOfAtat);
+            weapons.get(random.nextInt(weapons.size())).fire(target, this,noOfShooting);
+        }
     }
 
     @Override
@@ -50,7 +48,16 @@ public class AtAt extends Vehicle {
         setHealth(getHealth() - force);
         int noAlive = getHealth()/(Health.STORM_TR*2);
         int noOfDied = force/(Health.STORM_TR*2);
-        System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je uništeno "+noOfDied+
-                ", ostalo ih je još "+noAlive);
+        int fatality = (int)(random.nextInt(200)/(double)10000*force);
+        setCrew(getCrew() - fatality);
+        System.out.println("U napadu na "+getName()+" poginulo "+fatality+" Stromtroopera.");
+        if (getCrew()==0){
+            System.out.println(getName()+" ostaju bez posade te se kvare i eksplodiraju");
+            setHealth(0);
+        } else {
+            System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je uništeno "+noOfDied+
+                    ", ostalo ih je još "+noAlive);
+        }
+
     }
 }

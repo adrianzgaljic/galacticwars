@@ -1,5 +1,6 @@
 package participants.rebelalliance.vehicles.landvehicles;
 
+import demo.Health;
 import participants.Vehicle;
 import participants.WarParticipant;
 import weapons.DLT19HeavyBlasterRifle;
@@ -13,6 +14,7 @@ import java.util.Random;
 
 /**
  * Created by adrianzgaljic on 10/12/15.
+ * Class represents Low Altitude Assault Transport/infantry (LAAT/i), gunship used by rebel alliance.
  */
 public class LAAT extends Vehicle {
 
@@ -24,31 +26,42 @@ public class LAAT extends Vehicle {
     ArrayList<Weapon> weapons = new ArrayList<>(Arrays.asList(
             new DLT19HeavyBlasterRifle(),
             new E11BlasterRifle(),
-            new SuperLaser())
+            new DLT19HeavyBlasterRifle())
     );
-
-    /**
-     * name of character
-     */
-    private final String name = "LAAT/i";
-
 
 
     @Override
     public String getName() {
-        return name;
+        return  "LAAT/i";
     }
 
 
 
     @Override
     public void attack(WarParticipant target) {
+        int noOfLaat = getHealth()/ Health.WOOKIEES;
+        if (noOfLaat>0){
+            int noOfShooting = 1+random.nextInt(noOfLaat);
+            weapons.get(random.nextInt(weapons.size())).fire(target, this,noOfShooting);
+        }
         weapons.get(random.nextInt(weapons.size())).fire(target, this,1);
     }
 
     @Override
     public void defend(WarParticipant attacker, int force) {
-        System.out.println("Delta-7B Interceptor aktivira štit, nemreš mi ništa");
+        setHealth(getHealth() - force);
+        int noAlive = getHealth()/Health.WOOKIEES;
+        int noOfDied = force/Health.WOOKIEES;
+        int fatality = (int)(random.nextInt(200)/(double)10000*force);
+        setCrew(getCrew() - fatality);
+        System.out.println("U napadu na "+getName()+" poginulo "+fatality+" Wookiee.");
+        if (getCrew()==0){
+            System.out.println(getName()+" ostaju bez posade te se kvare i eksplodiraju");
+            setHealth(0);
+        } else {
+            System.out.println(getName() + " pretrpjeli napad od "+attacker.getName()+" u kojem ih je uništeno "+noOfDied+
+                    ", ostalo ih je još "+noAlive);
+        }
     }
 }
 

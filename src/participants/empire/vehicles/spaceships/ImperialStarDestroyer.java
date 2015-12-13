@@ -4,7 +4,6 @@ import participants.Vehicle;
 import participants.WarParticipant;
 import weapons.DLT19HeavyBlasterRifle;
 import weapons.E11BlasterRifle;
-import weapons.SuperLaser;
 import weapons.Weapon;
 
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ import java.util.Random;
 
 /**
  * Created by adrianzgaljic on 10/12/15.
+ * ImperialStarDestroyer is singleton class which represents Imperial Star Destroyer, massive dagger-shaped capital ship of the Imperial Navy.
  */
 public class ImperialStarDestroyer extends Vehicle {
 
@@ -32,11 +32,6 @@ public class ImperialStarDestroyer extends Vehicle {
     );
 
     /**
-     * name of character
-     */
-    private final String name = "Imperial Star Destroyer";
-
-    /**
      * only instance of ImperialStarDestroyer class
      */
     private static  ImperialStarDestroyer imperialStarDestroyer = new ImperialStarDestroyer();
@@ -49,7 +44,7 @@ public class ImperialStarDestroyer extends Vehicle {
 
     @Override
     public String getName() {
-        return name;
+        return "Imperial Star Destroyer";
     }
 
 

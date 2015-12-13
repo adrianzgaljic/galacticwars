@@ -1,6 +1,7 @@
 package participants.rebelalliance.armies;
 
 import demo.Health;
+import participants.Army;
 import participants.WarParticipant;
 import weapons.DLT19HeavyBlasterRifle;
 import weapons.E11BlasterRifle;
@@ -12,8 +13,9 @@ import java.util.Random;
 
 /**
  * Created by adrianzgaljic on 11/12/15.
+ * Droideka is singleton class which represents Droideka army of droids.
  */
-public class Droideka extends WarParticipant {
+public class Droideka extends Army {
 
     private Random random = new Random();
 
@@ -26,11 +28,6 @@ public class Droideka extends WarParticipant {
     );
 
     /**
-     * name of character
-     */
-    private final String name = "Droideka";
-
-    /**
      * only instance of Droideka class
      */
     private static  Droideka droideka  = new Droideka();
@@ -39,11 +36,12 @@ public class Droideka extends WarParticipant {
      * private Constructor prevents any other
      * class from instantiating
      */
-    private Droideka(){}
+    private Droideka(){
+    }
 
     @Override
     public String getName() {
-        return name;
+        return "Droideka";
     }
 
 
@@ -60,13 +58,16 @@ public class Droideka extends WarParticipant {
 
     @Override
     public void attack(WarParticipant target) {
-        int noOfDroids = getHealth()/ Health.DROIDEKA;
-        int noOfShooting = 1+random.nextInt(noOfDroids);
-        weapons.get(random.nextInt(weapons.size())).fire(target, this, noOfShooting);
+        int noOfDroideka = getHealth()/ Health.DROIDEKA;
+        if(noOfDroideka > 0){
+            int noOfShooting = 1+random.nextInt(noOfDroideka);
+            weapons.get(random.nextInt(weapons.size())).fire(target, this, noOfShooting);
+        }
     }
 
     @Override
     public void defend(WarParticipant attacker, int force) {
+        force = quantify(force,Health.DROIDEKA);
         setHealth(getHealth() - force);
         int noAlive = getHealth()/Health.DROIDEKA;
         int noOfDied = force/Health.DROIDEKA;

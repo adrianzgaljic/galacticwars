@@ -2,23 +2,27 @@ package participants.rebelalliance.characters;
 
 import participants.WarParticipant;
 import weapons.LightSaber;
+import weapons.PureForce;
 import weapons.Weapon;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 /**
  * Created by adrianzgaljic on 11/12/15.
+ * Singleton class which represents Jedi Yoda.
  */
 public class Yoda extends WarParticipant {
 
-    /**
-     * war participants weapon
-     */
-    private Weapon weapon = new LightSaber("green",100);
-
+    Random random = new Random();
 
     /**
-     * name of character
+     * war participants weapons
      */
-    private final String name = "Yoda";
+    ArrayList<Weapon> weapons = new ArrayList<>(Arrays.asList(
+            new LightSaber("green", 100), new PureForce()));
+
 
     /**
      * only instance of Yoda class
@@ -29,15 +33,13 @@ public class Yoda extends WarParticipant {
      * private Constructor prevents any other
      * class from instantiating
      */
-    private Yoda(){}
+    private Yoda(){
+    }
 
     @Override
     public String getName() {
-        return name;
+        return "Yoda";
     }
-
-
-
 
     /**
      * getter for only instance of Yoda  class
@@ -50,17 +52,16 @@ public class Yoda extends WarParticipant {
 
     @Override
     public void attack(WarParticipant target) {
-        weapon.fire(target,this,1);
-
-
+        if (target.getClass().equals(LukeSkywalker.class)){
+            System.out.println(target.getName()+" izdao nas si! Platiti sada ćeš!");
+        }
+        weapons.get(random.nextInt(weapons.size())).fire(target, this, 1);
     }
 
     @Override
     public void defend(WarParticipant attacker, int force) {
-
-
         setHealth(getHealth()-force);
-        System.out.println(getName() + " primio udarac od "+attacker.getName()+", još mu je preostalo "+getHealth()+" zdravlja");
+        System.out.println(getName() + ": od "+attacker.getName()+" udarac primio sam, preostalo "+getHealth()+" zdravlja još mi je.");
 
     }
 
