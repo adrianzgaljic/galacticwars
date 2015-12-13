@@ -76,6 +76,7 @@ public class ImperialStarDestroyer extends Vehicle {
             System.out.println("Imperial Star Destroyer aktivira štit, ne možete mi ništa, stanje štita "+shieldHealth+"%");
         } else {
             int fatality = (int)(random.nextInt(200)/(double)10000*force);
+            fatality = Math.min(fatality,getCrew());
             System.out.println("U napadu na Imperial Star Destroye, poginulo "+fatality+" članova posade");
             if (getCrew()<=0){
                 System.out.println("Imperial Star Destroyer nema posadu i samouništava se");

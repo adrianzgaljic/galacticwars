@@ -13,6 +13,8 @@ public class Vehicle extends WarParticipant {
      */
     private int crew;
 
+    public Vehicle() {
+    }
 
     public int getCrew() {
         if (crew<=0){
@@ -24,6 +26,18 @@ public class Vehicle extends WarParticipant {
 
     public void setCrew(int crew) {
         this.crew = crew;
+    }
+
+    /**
+     * this method is used to calculate number of vehicles destroyed in attack
+     * it is used because only whole number of vehicles can be destroyed in one attack
+     * @param force force of attack
+     * @param vehicleHealth health of individual vehicle (equals to number of soldiers operating it * soldier health)
+     * @return calculated force
+     */
+    public int quantify(int force, int vehicleHealth){
+        int noOfDied = Math.round(force/(float)vehicleHealth);
+        return noOfDied*vehicleHealth;
     }
 
     @Override

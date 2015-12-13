@@ -69,6 +69,7 @@ public class DeathStar extends Vehicle {
             System.out.println("Death star aktivira štit, ne možete mi ništa, stanje štita "+shieldHealth+"%");
         } else {
             int fatality = (int)(random.nextInt(200)/(double)10000*force);
+            fatality = Math.min(fatality,getCrew());
             System.out.println("U napadu na zvijezdu smrti, poginulo "+fatality+" članova posade");
             setCrew(getCrew()-fatality);
             if (getCrew()<=0){

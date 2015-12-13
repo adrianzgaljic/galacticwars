@@ -25,16 +25,10 @@ public class Z74SpeederBike extends Vehicle {
 
     );
 
-    /**
-     * name of character
-     */
-    private final String name = "74-Z Speeder Bike";
-
-
 
     @Override
     public String getName() {
-        return name;
+        return "74-Z Speeder Bike";
     }
 
 
@@ -50,10 +44,12 @@ public class Z74SpeederBike extends Vehicle {
 
     @Override
     public void defend(WarParticipant attacker, int force) {
+        force = quantify(force,Health.STORM_TR);
         setHealth(getHealth() - force);
         int noAlive = getHealth()/Health.STORM_TR;
         int noOfDied = force/Health.STORM_TR;
         int fatality = (int)(random.nextInt(200)/(double)10000*force);
+        fatality = Math.min(fatality,getCrew());
         setCrew(getCrew() - fatality);
         System.out.println("U napadu na "+getName()+" poginulo "+fatality+" Stromtroopera.");
         if (getCrew()==0){

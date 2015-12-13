@@ -1,5 +1,6 @@
 package participants.rebelalliance.vehicles.spaceships;
 
+import demo.Health;
 import participants.Vehicle;
 import participants.WarParticipant;
 import weapons.DLT19HeavyBlasterRifle;
@@ -73,6 +74,7 @@ public class MillenniumFalcon extends Vehicle {
             System.out.println("Millennium Falcon  aktivira štit, ne možete mi ništa, stanje štita "+shieldHealth+"%");
         } else {
             int fatality = (int)(random.nextInt(200)/(double)10000*force);
+            fatality = Math.min(fatality,getCrew());
             System.out.println("U napadu na Millennium Falcon, poginulo "+fatality+" članova posade");
             if (getCrew()<=0){
                 System.out.println("Millennium Falcon nema posadu i samouništava se");

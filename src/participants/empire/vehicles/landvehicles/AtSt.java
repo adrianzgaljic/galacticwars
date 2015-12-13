@@ -44,10 +44,12 @@ public class AtSt extends Vehicle {
 
     @Override
     public void defend(WarParticipant attacker, int force) {
+        force = quantify(force,Health.STORM_TR*2);
         setHealth(getHealth() - force);
         int noAlive = getHealth()/(Health.STORM_TR*2);
         int noOfDied = force/(Health.STORM_TR*2);
         int fatality = (int)(random.nextInt(200)/(double)10000*force);
+        fatality = Math.min(fatality,getCrew());
         setCrew(getCrew() - fatality);
         System.out.println("U napadu na "+getName()+" poginulo "+fatality+" Stromtroopera.");
         if (getCrew()==0){
