@@ -52,8 +52,8 @@ public class Engine {
     public void startWar(){
 
         Health.isOver = false;
-        empireNo = 5;//getNumber("Imperija");
-        rebelNo = 5;//getNumber("Pobunjeničkog otpora");
+        empireNo = getNumber("Imperija");
+        rebelNo = getNumber("Pobunjeničkog otpora");
 
 
         if (empireNo==0 && rebelNo==0){
