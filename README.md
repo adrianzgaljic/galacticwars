@@ -1,10 +1,10 @@
-###Galactic Wars
+## Galactic Wars
 Galactic Wars is Java simulation of Star Wars battle.
 This project is made to show how to use basic principles of Java programming language.
 
 ![Demo](https://github.com/adrianzgaljic/galacticwars/blob/master/demoimagelow.jpg)
 
-###How to use Galactic wars?
+## How to use Galactic wars?
 
 To start battle simulation, you have to specify number of soldiers for both Empire and Rebel Alliance.
 
